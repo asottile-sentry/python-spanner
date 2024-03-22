@@ -1168,7 +1168,8 @@ def test_list_databases(request_type, transport: str = "grpc"):
         # Establish that the underlying gRPC stub method was called.
         assert len(call.mock_calls) == 1
         _, args, _ = call.mock_calls[0]
-        assert args[0] == spanner_database_admin.ListDatabasesRequest()
+        request = spanner_database_admin.ListDatabasesRequest()
+        assert args[0] == request
 
     # Establish that the response is the type that we expect.
     assert isinstance(response, pagers.ListDatabasesPager)
@@ -1186,6 +1187,56 @@ def test_list_databases_empty_call():
     # Mock the actual call within the gRPC stub, and fake the request.
     with mock.patch.object(type(client.transport.list_databases), "__call__") as call:
         client.list_databases()
+        call.assert_called()
+        _, args, _ = call.mock_calls[0]
+        assert args[0] == spanner_database_admin.ListDatabasesRequest()
+
+
+def test_list_databases_non_empty_request_with_auto_populated_field():
+    # This test is a coverage failsafe to make sure that UUID4 fields are
+    # automatically populated, according to AIP-4235, with non-empty requests.
+    client = DatabaseAdminClient(
+        credentials=ga_credentials.AnonymousCredentials(),
+        transport="grpc",
+    )
+
+    # Populate all string fields in the request which are not UUID4
+    # since we want to check that UUID4 are populated automatically
+    # if they meet the requirements of AIP 4235.
+    request = spanner_database_admin.ListDatabasesRequest(
+        parent="parent_value",
+        page_token="page_token_value",
+    )
+
+    # Mock the actual call within the gRPC stub, and fake the request.
+    with mock.patch.object(type(client.transport.list_databases), "__call__") as call:
+        client.list_databases(request=request)
+        call.assert_called()
+        _, args, _ = call.mock_calls[0]
+        assert args[0] == spanner_database_admin.ListDatabasesRequest(
+            parent="parent_value",
+            page_token="page_token_value",
+        )
+
+
+@pytest.mark.asyncio
+async def test_list_databases_empty_call_async():
+    # This test is a coverage failsafe to make sure that totally empty calls,
+    # i.e. request == None and no flattened fields passed, work.
+    client = DatabaseAdminAsyncClient(
+        credentials=ga_credentials.AnonymousCredentials(),
+        transport="grpc_asyncio",
+    )
+
+    # Mock the actual call within the gRPC stub, and fake the request.
+    with mock.patch.object(type(client.transport.list_databases), "__call__") as call:
+        # Designate an appropriate return value for the call.
+        call.return_value = grpc_helpers_async.FakeUnaryUnaryCall(
+            spanner_database_admin.ListDatabasesResponse(
+                next_page_token="next_page_token_value",
+            )
+        )
+        response = await client.list_databases()
         call.assert_called()
         _, args, _ = call.mock_calls[0]
         assert args[0] == spanner_database_admin.ListDatabasesRequest()
@@ -1218,7 +1269,8 @@ async def test_list_databases_async(
         # Establish that the underlying gRPC stub method was called.
         assert len(call.mock_calls)
         _, args, _ = call.mock_calls[0]
-        assert args[0] == spanner_database_admin.ListDatabasesRequest()
+        request = spanner_database_admin.ListDatabasesRequest()
+        assert args[0] == request
 
     # Establish that the response is the type that we expect.
     assert isinstance(response, pagers.ListDatabasesAsyncPager)
@@ -1589,7 +1641,8 @@ def test_create_database(request_type, transport: str = "grpc"):
         # Establish that the underlying gRPC stub method was called.
         assert len(call.mock_calls) == 1
         _, args, _ = call.mock_calls[0]
-        assert args[0] == spanner_database_admin.CreateDatabaseRequest()
+        request = spanner_database_admin.CreateDatabaseRequest()
+        assert args[0] == request
 
     # Establish that the response is the type that we expect.
     assert isinstance(response, future.Future)
@@ -1606,6 +1659,54 @@ def test_create_database_empty_call():
     # Mock the actual call within the gRPC stub, and fake the request.
     with mock.patch.object(type(client.transport.create_database), "__call__") as call:
         client.create_database()
+        call.assert_called()
+        _, args, _ = call.mock_calls[0]
+        assert args[0] == spanner_database_admin.CreateDatabaseRequest()
+
+
+def test_create_database_non_empty_request_with_auto_populated_field():
+    # This test is a coverage failsafe to make sure that UUID4 fields are
+    # automatically populated, according to AIP-4235, with non-empty requests.
+    client = DatabaseAdminClient(
+        credentials=ga_credentials.AnonymousCredentials(),
+        transport="grpc",
+    )
+
+    # Populate all string fields in the request which are not UUID4
+    # since we want to check that UUID4 are populated automatically
+    # if they meet the requirements of AIP 4235.
+    request = spanner_database_admin.CreateDatabaseRequest(
+        parent="parent_value",
+        create_statement="create_statement_value",
+    )
+
+    # Mock the actual call within the gRPC stub, and fake the request.
+    with mock.patch.object(type(client.transport.create_database), "__call__") as call:
+        client.create_database(request=request)
+        call.assert_called()
+        _, args, _ = call.mock_calls[0]
+        assert args[0] == spanner_database_admin.CreateDatabaseRequest(
+            parent="parent_value",
+            create_statement="create_statement_value",
+        )
+
+
+@pytest.mark.asyncio
+async def test_create_database_empty_call_async():
+    # This test is a coverage failsafe to make sure that totally empty calls,
+    # i.e. request == None and no flattened fields passed, work.
+    client = DatabaseAdminAsyncClient(
+        credentials=ga_credentials.AnonymousCredentials(),
+        transport="grpc_asyncio",
+    )
+
+    # Mock the actual call within the gRPC stub, and fake the request.
+    with mock.patch.object(type(client.transport.create_database), "__call__") as call:
+        # Designate an appropriate return value for the call.
+        call.return_value = grpc_helpers_async.FakeUnaryUnaryCall(
+            operations_pb2.Operation(name="operations/spam")
+        )
+        response = await client.create_database()
         call.assert_called()
         _, args, _ = call.mock_calls[0]
         assert args[0] == spanner_database_admin.CreateDatabaseRequest()
@@ -1636,7 +1737,8 @@ async def test_create_database_async(
         # Establish that the underlying gRPC stub method was called.
         assert len(call.mock_calls)
         _, args, _ = call.mock_calls[0]
-        assert args[0] == spanner_database_admin.CreateDatabaseRequest()
+        request = spanner_database_admin.CreateDatabaseRequest()
+        assert args[0] == request
 
     # Establish that the response is the type that we expect.
     assert isinstance(response, future.Future)
@@ -1834,7 +1936,8 @@ def test_get_database(request_type, transport: str = "grpc"):
         # Establish that the underlying gRPC stub method was called.
         assert len(call.mock_calls) == 1
         _, args, _ = call.mock_calls[0]
-        assert args[0] == spanner_database_admin.GetDatabaseRequest()
+        request = spanner_database_admin.GetDatabaseRequest()
+        assert args[0] == request
 
     # Establish that the response is the type that we expect.
     assert isinstance(response, spanner_database_admin.Database)
@@ -1858,6 +1961,60 @@ def test_get_database_empty_call():
     # Mock the actual call within the gRPC stub, and fake the request.
     with mock.patch.object(type(client.transport.get_database), "__call__") as call:
         client.get_database()
+        call.assert_called()
+        _, args, _ = call.mock_calls[0]
+        assert args[0] == spanner_database_admin.GetDatabaseRequest()
+
+
+def test_get_database_non_empty_request_with_auto_populated_field():
+    # This test is a coverage failsafe to make sure that UUID4 fields are
+    # automatically populated, according to AIP-4235, with non-empty requests.
+    client = DatabaseAdminClient(
+        credentials=ga_credentials.AnonymousCredentials(),
+        transport="grpc",
+    )
+
+    # Populate all string fields in the request which are not UUID4
+    # since we want to check that UUID4 are populated automatically
+    # if they meet the requirements of AIP 4235.
+    request = spanner_database_admin.GetDatabaseRequest(
+        name="name_value",
+    )
+
+    # Mock the actual call within the gRPC stub, and fake the request.
+    with mock.patch.object(type(client.transport.get_database), "__call__") as call:
+        client.get_database(request=request)
+        call.assert_called()
+        _, args, _ = call.mock_calls[0]
+        assert args[0] == spanner_database_admin.GetDatabaseRequest(
+            name="name_value",
+        )
+
+
+@pytest.mark.asyncio
+async def test_get_database_empty_call_async():
+    # This test is a coverage failsafe to make sure that totally empty calls,
+    # i.e. request == None and no flattened fields passed, work.
+    client = DatabaseAdminAsyncClient(
+        credentials=ga_credentials.AnonymousCredentials(),
+        transport="grpc_asyncio",
+    )
+
+    # Mock the actual call within the gRPC stub, and fake the request.
+    with mock.patch.object(type(client.transport.get_database), "__call__") as call:
+        # Designate an appropriate return value for the call.
+        call.return_value = grpc_helpers_async.FakeUnaryUnaryCall(
+            spanner_database_admin.Database(
+                name="name_value",
+                state=spanner_database_admin.Database.State.CREATING,
+                version_retention_period="version_retention_period_value",
+                default_leader="default_leader_value",
+                database_dialect=common.DatabaseDialect.GOOGLE_STANDARD_SQL,
+                enable_drop_protection=True,
+                reconciling=True,
+            )
+        )
+        response = await client.get_database()
         call.assert_called()
         _, args, _ = call.mock_calls[0]
         assert args[0] == spanner_database_admin.GetDatabaseRequest()
@@ -1896,7 +2053,8 @@ async def test_get_database_async(
         # Establish that the underlying gRPC stub method was called.
         assert len(call.mock_calls)
         _, args, _ = call.mock_calls[0]
-        assert args[0] == spanner_database_admin.GetDatabaseRequest()
+        request = spanner_database_admin.GetDatabaseRequest()
+        assert args[0] == request
 
     # Establish that the response is the type that we expect.
     assert isinstance(response, spanner_database_admin.Database)
@@ -2083,7 +2241,8 @@ def test_update_database(request_type, transport: str = "grpc"):
         # Establish that the underlying gRPC stub method was called.
         assert len(call.mock_calls) == 1
         _, args, _ = call.mock_calls[0]
-        assert args[0] == spanner_database_admin.UpdateDatabaseRequest()
+        request = spanner_database_admin.UpdateDatabaseRequest()
+        assert args[0] == request
 
     # Establish that the response is the type that we expect.
     assert isinstance(response, future.Future)
@@ -2100,6 +2259,48 @@ def test_update_database_empty_call():
     # Mock the actual call within the gRPC stub, and fake the request.
     with mock.patch.object(type(client.transport.update_database), "__call__") as call:
         client.update_database()
+        call.assert_called()
+        _, args, _ = call.mock_calls[0]
+        assert args[0] == spanner_database_admin.UpdateDatabaseRequest()
+
+
+def test_update_database_non_empty_request_with_auto_populated_field():
+    # This test is a coverage failsafe to make sure that UUID4 fields are
+    # automatically populated, according to AIP-4235, with non-empty requests.
+    client = DatabaseAdminClient(
+        credentials=ga_credentials.AnonymousCredentials(),
+        transport="grpc",
+    )
+
+    # Populate all string fields in the request which are not UUID4
+    # since we want to check that UUID4 are populated automatically
+    # if they meet the requirements of AIP 4235.
+    request = spanner_database_admin.UpdateDatabaseRequest()
+
+    # Mock the actual call within the gRPC stub, and fake the request.
+    with mock.patch.object(type(client.transport.update_database), "__call__") as call:
+        client.update_database(request=request)
+        call.assert_called()
+        _, args, _ = call.mock_calls[0]
+        assert args[0] == spanner_database_admin.UpdateDatabaseRequest()
+
+
+@pytest.mark.asyncio
+async def test_update_database_empty_call_async():
+    # This test is a coverage failsafe to make sure that totally empty calls,
+    # i.e. request == None and no flattened fields passed, work.
+    client = DatabaseAdminAsyncClient(
+        credentials=ga_credentials.AnonymousCredentials(),
+        transport="grpc_asyncio",
+    )
+
+    # Mock the actual call within the gRPC stub, and fake the request.
+    with mock.patch.object(type(client.transport.update_database), "__call__") as call:
+        # Designate an appropriate return value for the call.
+        call.return_value = grpc_helpers_async.FakeUnaryUnaryCall(
+            operations_pb2.Operation(name="operations/spam")
+        )
+        response = await client.update_database()
         call.assert_called()
         _, args, _ = call.mock_calls[0]
         assert args[0] == spanner_database_admin.UpdateDatabaseRequest()
@@ -2130,7 +2331,8 @@ async def test_update_database_async(
         # Establish that the underlying gRPC stub method was called.
         assert len(call.mock_calls)
         _, args, _ = call.mock_calls[0]
-        assert args[0] == spanner_database_admin.UpdateDatabaseRequest()
+        request = spanner_database_admin.UpdateDatabaseRequest()
+        assert args[0] == request
 
     # Establish that the response is the type that we expect.
     assert isinstance(response, future.Future)
@@ -2322,7 +2524,8 @@ def test_update_database_ddl(request_type, transport: str = "grpc"):
         # Establish that the underlying gRPC stub method was called.
         assert len(call.mock_calls) == 1
         _, args, _ = call.mock_calls[0]
-        assert args[0] == spanner_database_admin.UpdateDatabaseDdlRequest()
+        request = spanner_database_admin.UpdateDatabaseDdlRequest()
+        assert args[0] == request
 
     # Establish that the response is the type that we expect.
     assert isinstance(response, future.Future)
@@ -2341,6 +2544,58 @@ def test_update_database_ddl_empty_call():
         type(client.transport.update_database_ddl), "__call__"
     ) as call:
         client.update_database_ddl()
+        call.assert_called()
+        _, args, _ = call.mock_calls[0]
+        assert args[0] == spanner_database_admin.UpdateDatabaseDdlRequest()
+
+
+def test_update_database_ddl_non_empty_request_with_auto_populated_field():
+    # This test is a coverage failsafe to make sure that UUID4 fields are
+    # automatically populated, according to AIP-4235, with non-empty requests.
+    client = DatabaseAdminClient(
+        credentials=ga_credentials.AnonymousCredentials(),
+        transport="grpc",
+    )
+
+    # Populate all string fields in the request which are not UUID4
+    # since we want to check that UUID4 are populated automatically
+    # if they meet the requirements of AIP 4235.
+    request = spanner_database_admin.UpdateDatabaseDdlRequest(
+        database="database_value",
+        operation_id="operation_id_value",
+    )
+
+    # Mock the actual call within the gRPC stub, and fake the request.
+    with mock.patch.object(
+        type(client.transport.update_database_ddl), "__call__"
+    ) as call:
+        client.update_database_ddl(request=request)
+        call.assert_called()
+        _, args, _ = call.mock_calls[0]
+        assert args[0] == spanner_database_admin.UpdateDatabaseDdlRequest(
+            database="database_value",
+            operation_id="operation_id_value",
+        )
+
+
+@pytest.mark.asyncio
+async def test_update_database_ddl_empty_call_async():
+    # This test is a coverage failsafe to make sure that totally empty calls,
+    # i.e. request == None and no flattened fields passed, work.
+    client = DatabaseAdminAsyncClient(
+        credentials=ga_credentials.AnonymousCredentials(),
+        transport="grpc_asyncio",
+    )
+
+    # Mock the actual call within the gRPC stub, and fake the request.
+    with mock.patch.object(
+        type(client.transport.update_database_ddl), "__call__"
+    ) as call:
+        # Designate an appropriate return value for the call.
+        call.return_value = grpc_helpers_async.FakeUnaryUnaryCall(
+            operations_pb2.Operation(name="operations/spam")
+        )
+        response = await client.update_database_ddl()
         call.assert_called()
         _, args, _ = call.mock_calls[0]
         assert args[0] == spanner_database_admin.UpdateDatabaseDdlRequest()
@@ -2373,7 +2628,8 @@ async def test_update_database_ddl_async(
         # Establish that the underlying gRPC stub method was called.
         assert len(call.mock_calls)
         _, args, _ = call.mock_calls[0]
-        assert args[0] == spanner_database_admin.UpdateDatabaseDdlRequest()
+        request = spanner_database_admin.UpdateDatabaseDdlRequest()
+        assert args[0] == request
 
     # Establish that the response is the type that we expect.
     assert isinstance(response, future.Future)
@@ -2571,7 +2827,8 @@ def test_drop_database(request_type, transport: str = "grpc"):
         # Establish that the underlying gRPC stub method was called.
         assert len(call.mock_calls) == 1
         _, args, _ = call.mock_calls[0]
-        assert args[0] == spanner_database_admin.DropDatabaseRequest()
+        request = spanner_database_admin.DropDatabaseRequest()
+        assert args[0] == request
 
     # Establish that the response is the type that we expect.
     assert response is None
@@ -2588,6 +2845,50 @@ def test_drop_database_empty_call():
     # Mock the actual call within the gRPC stub, and fake the request.
     with mock.patch.object(type(client.transport.drop_database), "__call__") as call:
         client.drop_database()
+        call.assert_called()
+        _, args, _ = call.mock_calls[0]
+        assert args[0] == spanner_database_admin.DropDatabaseRequest()
+
+
+def test_drop_database_non_empty_request_with_auto_populated_field():
+    # This test is a coverage failsafe to make sure that UUID4 fields are
+    # automatically populated, according to AIP-4235, with non-empty requests.
+    client = DatabaseAdminClient(
+        credentials=ga_credentials.AnonymousCredentials(),
+        transport="grpc",
+    )
+
+    # Populate all string fields in the request which are not UUID4
+    # since we want to check that UUID4 are populated automatically
+    # if they meet the requirements of AIP 4235.
+    request = spanner_database_admin.DropDatabaseRequest(
+        database="database_value",
+    )
+
+    # Mock the actual call within the gRPC stub, and fake the request.
+    with mock.patch.object(type(client.transport.drop_database), "__call__") as call:
+        client.drop_database(request=request)
+        call.assert_called()
+        _, args, _ = call.mock_calls[0]
+        assert args[0] == spanner_database_admin.DropDatabaseRequest(
+            database="database_value",
+        )
+
+
+@pytest.mark.asyncio
+async def test_drop_database_empty_call_async():
+    # This test is a coverage failsafe to make sure that totally empty calls,
+    # i.e. request == None and no flattened fields passed, work.
+    client = DatabaseAdminAsyncClient(
+        credentials=ga_credentials.AnonymousCredentials(),
+        transport="grpc_asyncio",
+    )
+
+    # Mock the actual call within the gRPC stub, and fake the request.
+    with mock.patch.object(type(client.transport.drop_database), "__call__") as call:
+        # Designate an appropriate return value for the call.
+        call.return_value = grpc_helpers_async.FakeUnaryUnaryCall(None)
+        response = await client.drop_database()
         call.assert_called()
         _, args, _ = call.mock_calls[0]
         assert args[0] == spanner_database_admin.DropDatabaseRequest()
@@ -2616,7 +2917,8 @@ async def test_drop_database_async(
         # Establish that the underlying gRPC stub method was called.
         assert len(call.mock_calls)
         _, args, _ = call.mock_calls[0]
-        assert args[0] == spanner_database_admin.DropDatabaseRequest()
+        request = spanner_database_admin.DropDatabaseRequest()
+        assert args[0] == request
 
     # Establish that the response is the type that we expect.
     assert response is None
@@ -2795,7 +3097,8 @@ def test_get_database_ddl(request_type, transport: str = "grpc"):
         # Establish that the underlying gRPC stub method was called.
         assert len(call.mock_calls) == 1
         _, args, _ = call.mock_calls[0]
-        assert args[0] == spanner_database_admin.GetDatabaseDdlRequest()
+        request = spanner_database_admin.GetDatabaseDdlRequest()
+        assert args[0] == request
 
     # Establish that the response is the type that we expect.
     assert isinstance(response, spanner_database_admin.GetDatabaseDdlResponse)
@@ -2814,6 +3117,55 @@ def test_get_database_ddl_empty_call():
     # Mock the actual call within the gRPC stub, and fake the request.
     with mock.patch.object(type(client.transport.get_database_ddl), "__call__") as call:
         client.get_database_ddl()
+        call.assert_called()
+        _, args, _ = call.mock_calls[0]
+        assert args[0] == spanner_database_admin.GetDatabaseDdlRequest()
+
+
+def test_get_database_ddl_non_empty_request_with_auto_populated_field():
+    # This test is a coverage failsafe to make sure that UUID4 fields are
+    # automatically populated, according to AIP-4235, with non-empty requests.
+    client = DatabaseAdminClient(
+        credentials=ga_credentials.AnonymousCredentials(),
+        transport="grpc",
+    )
+
+    # Populate all string fields in the request which are not UUID4
+    # since we want to check that UUID4 are populated automatically
+    # if they meet the requirements of AIP 4235.
+    request = spanner_database_admin.GetDatabaseDdlRequest(
+        database="database_value",
+    )
+
+    # Mock the actual call within the gRPC stub, and fake the request.
+    with mock.patch.object(type(client.transport.get_database_ddl), "__call__") as call:
+        client.get_database_ddl(request=request)
+        call.assert_called()
+        _, args, _ = call.mock_calls[0]
+        assert args[0] == spanner_database_admin.GetDatabaseDdlRequest(
+            database="database_value",
+        )
+
+
+@pytest.mark.asyncio
+async def test_get_database_ddl_empty_call_async():
+    # This test is a coverage failsafe to make sure that totally empty calls,
+    # i.e. request == None and no flattened fields passed, work.
+    client = DatabaseAdminAsyncClient(
+        credentials=ga_credentials.AnonymousCredentials(),
+        transport="grpc_asyncio",
+    )
+
+    # Mock the actual call within the gRPC stub, and fake the request.
+    with mock.patch.object(type(client.transport.get_database_ddl), "__call__") as call:
+        # Designate an appropriate return value for the call.
+        call.return_value = grpc_helpers_async.FakeUnaryUnaryCall(
+            spanner_database_admin.GetDatabaseDdlResponse(
+                statements=["statements_value"],
+                proto_descriptors=b"proto_descriptors_blob",
+            )
+        )
+        response = await client.get_database_ddl()
         call.assert_called()
         _, args, _ = call.mock_calls[0]
         assert args[0] == spanner_database_admin.GetDatabaseDdlRequest()
@@ -2847,7 +3199,8 @@ async def test_get_database_ddl_async(
         # Establish that the underlying gRPC stub method was called.
         assert len(call.mock_calls)
         _, args, _ = call.mock_calls[0]
-        assert args[0] == spanner_database_admin.GetDatabaseDdlRequest()
+        request = spanner_database_admin.GetDatabaseDdlRequest()
+        assert args[0] == request
 
     # Establish that the response is the type that we expect.
     assert isinstance(response, spanner_database_admin.GetDatabaseDdlResponse)
@@ -3032,7 +3385,8 @@ def test_set_iam_policy(request_type, transport: str = "grpc"):
         # Establish that the underlying gRPC stub method was called.
         assert len(call.mock_calls) == 1
         _, args, _ = call.mock_calls[0]
-        assert args[0] == iam_policy_pb2.SetIamPolicyRequest()
+        request = iam_policy_pb2.SetIamPolicyRequest()
+        assert args[0] == request
 
     # Establish that the response is the type that we expect.
     assert isinstance(response, policy_pb2.Policy)
@@ -3051,6 +3405,55 @@ def test_set_iam_policy_empty_call():
     # Mock the actual call within the gRPC stub, and fake the request.
     with mock.patch.object(type(client.transport.set_iam_policy), "__call__") as call:
         client.set_iam_policy()
+        call.assert_called()
+        _, args, _ = call.mock_calls[0]
+        assert args[0] == iam_policy_pb2.SetIamPolicyRequest()
+
+
+def test_set_iam_policy_non_empty_request_with_auto_populated_field():
+    # This test is a coverage failsafe to make sure that UUID4 fields are
+    # automatically populated, according to AIP-4235, with non-empty requests.
+    client = DatabaseAdminClient(
+        credentials=ga_credentials.AnonymousCredentials(),
+        transport="grpc",
+    )
+
+    # Populate all string fields in the request which are not UUID4
+    # since we want to check that UUID4 are populated automatically
+    # if they meet the requirements of AIP 4235.
+    request = iam_policy_pb2.SetIamPolicyRequest(
+        resource="resource_value",
+    )
+
+    # Mock the actual call within the gRPC stub, and fake the request.
+    with mock.patch.object(type(client.transport.set_iam_policy), "__call__") as call:
+        client.set_iam_policy(request=request)
+        call.assert_called()
+        _, args, _ = call.mock_calls[0]
+        assert args[0] == iam_policy_pb2.SetIamPolicyRequest(
+            resource="resource_value",
+        )
+
+
+@pytest.mark.asyncio
+async def test_set_iam_policy_empty_call_async():
+    # This test is a coverage failsafe to make sure that totally empty calls,
+    # i.e. request == None and no flattened fields passed, work.
+    client = DatabaseAdminAsyncClient(
+        credentials=ga_credentials.AnonymousCredentials(),
+        transport="grpc_asyncio",
+    )
+
+    # Mock the actual call within the gRPC stub, and fake the request.
+    with mock.patch.object(type(client.transport.set_iam_policy), "__call__") as call:
+        # Designate an appropriate return value for the call.
+        call.return_value = grpc_helpers_async.FakeUnaryUnaryCall(
+            policy_pb2.Policy(
+                version=774,
+                etag=b"etag_blob",
+            )
+        )
+        response = await client.set_iam_policy()
         call.assert_called()
         _, args, _ = call.mock_calls[0]
         assert args[0] == iam_policy_pb2.SetIamPolicyRequest()
@@ -3083,7 +3486,8 @@ async def test_set_iam_policy_async(
         # Establish that the underlying gRPC stub method was called.
         assert len(call.mock_calls)
         _, args, _ = call.mock_calls[0]
-        assert args[0] == iam_policy_pb2.SetIamPolicyRequest()
+        request = iam_policy_pb2.SetIamPolicyRequest()
+        assert args[0] == request
 
     # Establish that the response is the type that we expect.
     assert isinstance(response, policy_pb2.Policy)
@@ -3282,7 +3686,8 @@ def test_get_iam_policy(request_type, transport: str = "grpc"):
         # Establish that the underlying gRPC stub method was called.
         assert len(call.mock_calls) == 1
         _, args, _ = call.mock_calls[0]
-        assert args[0] == iam_policy_pb2.GetIamPolicyRequest()
+        request = iam_policy_pb2.GetIamPolicyRequest()
+        assert args[0] == request
 
     # Establish that the response is the type that we expect.
     assert isinstance(response, policy_pb2.Policy)
@@ -3301,6 +3706,55 @@ def test_get_iam_policy_empty_call():
     # Mock the actual call within the gRPC stub, and fake the request.
     with mock.patch.object(type(client.transport.get_iam_policy), "__call__") as call:
         client.get_iam_policy()
+        call.assert_called()
+        _, args, _ = call.mock_calls[0]
+        assert args[0] == iam_policy_pb2.GetIamPolicyRequest()
+
+
+def test_get_iam_policy_non_empty_request_with_auto_populated_field():
+    # This test is a coverage failsafe to make sure that UUID4 fields are
+    # automatically populated, according to AIP-4235, with non-empty requests.
+    client = DatabaseAdminClient(
+        credentials=ga_credentials.AnonymousCredentials(),
+        transport="grpc",
+    )
+
+    # Populate all string fields in the request which are not UUID4
+    # since we want to check that UUID4 are populated automatically
+    # if they meet the requirements of AIP 4235.
+    request = iam_policy_pb2.GetIamPolicyRequest(
+        resource="resource_value",
+    )
+
+    # Mock the actual call within the gRPC stub, and fake the request.
+    with mock.patch.object(type(client.transport.get_iam_policy), "__call__") as call:
+        client.get_iam_policy(request=request)
+        call.assert_called()
+        _, args, _ = call.mock_calls[0]
+        assert args[0] == iam_policy_pb2.GetIamPolicyRequest(
+            resource="resource_value",
+        )
+
+
+@pytest.mark.asyncio
+async def test_get_iam_policy_empty_call_async():
+    # This test is a coverage failsafe to make sure that totally empty calls,
+    # i.e. request == None and no flattened fields passed, work.
+    client = DatabaseAdminAsyncClient(
+        credentials=ga_credentials.AnonymousCredentials(),
+        transport="grpc_asyncio",
+    )
+
+    # Mock the actual call within the gRPC stub, and fake the request.
+    with mock.patch.object(type(client.transport.get_iam_policy), "__call__") as call:
+        # Designate an appropriate return value for the call.
+        call.return_value = grpc_helpers_async.FakeUnaryUnaryCall(
+            policy_pb2.Policy(
+                version=774,
+                etag=b"etag_blob",
+            )
+        )
+        response = await client.get_iam_policy()
         call.assert_called()
         _, args, _ = call.mock_calls[0]
         assert args[0] == iam_policy_pb2.GetIamPolicyRequest()
@@ -3333,7 +3787,8 @@ async def test_get_iam_policy_async(
         # Establish that the underlying gRPC stub method was called.
         assert len(call.mock_calls)
         _, args, _ = call.mock_calls[0]
-        assert args[0] == iam_policy_pb2.GetIamPolicyRequest()
+        request = iam_policy_pb2.GetIamPolicyRequest()
+        assert args[0] == request
 
     # Establish that the response is the type that we expect.
     assert isinstance(response, policy_pb2.Policy)
@@ -3532,7 +3987,8 @@ def test_test_iam_permissions(request_type, transport: str = "grpc"):
         # Establish that the underlying gRPC stub method was called.
         assert len(call.mock_calls) == 1
         _, args, _ = call.mock_calls[0]
-        assert args[0] == iam_policy_pb2.TestIamPermissionsRequest()
+        request = iam_policy_pb2.TestIamPermissionsRequest()
+        assert args[0] == request
 
     # Establish that the response is the type that we expect.
     assert isinstance(response, iam_policy_pb2.TestIamPermissionsResponse)
@@ -3552,6 +4008,58 @@ def test_test_iam_permissions_empty_call():
         type(client.transport.test_iam_permissions), "__call__"
     ) as call:
         client.test_iam_permissions()
+        call.assert_called()
+        _, args, _ = call.mock_calls[0]
+        assert args[0] == iam_policy_pb2.TestIamPermissionsRequest()
+
+
+def test_test_iam_permissions_non_empty_request_with_auto_populated_field():
+    # This test is a coverage failsafe to make sure that UUID4 fields are
+    # automatically populated, according to AIP-4235, with non-empty requests.
+    client = DatabaseAdminClient(
+        credentials=ga_credentials.AnonymousCredentials(),
+        transport="grpc",
+    )
+
+    # Populate all string fields in the request which are not UUID4
+    # since we want to check that UUID4 are populated automatically
+    # if they meet the requirements of AIP 4235.
+    request = iam_policy_pb2.TestIamPermissionsRequest(
+        resource="resource_value",
+    )
+
+    # Mock the actual call within the gRPC stub, and fake the request.
+    with mock.patch.object(
+        type(client.transport.test_iam_permissions), "__call__"
+    ) as call:
+        client.test_iam_permissions(request=request)
+        call.assert_called()
+        _, args, _ = call.mock_calls[0]
+        assert args[0] == iam_policy_pb2.TestIamPermissionsRequest(
+            resource="resource_value",
+        )
+
+
+@pytest.mark.asyncio
+async def test_test_iam_permissions_empty_call_async():
+    # This test is a coverage failsafe to make sure that totally empty calls,
+    # i.e. request == None and no flattened fields passed, work.
+    client = DatabaseAdminAsyncClient(
+        credentials=ga_credentials.AnonymousCredentials(),
+        transport="grpc_asyncio",
+    )
+
+    # Mock the actual call within the gRPC stub, and fake the request.
+    with mock.patch.object(
+        type(client.transport.test_iam_permissions), "__call__"
+    ) as call:
+        # Designate an appropriate return value for the call.
+        call.return_value = grpc_helpers_async.FakeUnaryUnaryCall(
+            iam_policy_pb2.TestIamPermissionsResponse(
+                permissions=["permissions_value"],
+            )
+        )
+        response = await client.test_iam_permissions()
         call.assert_called()
         _, args, _ = call.mock_calls[0]
         assert args[0] == iam_policy_pb2.TestIamPermissionsRequest()
@@ -3586,7 +4094,8 @@ async def test_test_iam_permissions_async(
         # Establish that the underlying gRPC stub method was called.
         assert len(call.mock_calls)
         _, args, _ = call.mock_calls[0]
-        assert args[0] == iam_policy_pb2.TestIamPermissionsRequest()
+        request = iam_policy_pb2.TestIamPermissionsRequest()
+        assert args[0] == request
 
     # Establish that the response is the type that we expect.
     assert isinstance(response, iam_policy_pb2.TestIamPermissionsResponse)
@@ -3804,7 +4313,8 @@ def test_create_backup(request_type, transport: str = "grpc"):
         # Establish that the underlying gRPC stub method was called.
         assert len(call.mock_calls) == 1
         _, args, _ = call.mock_calls[0]
-        assert args[0] == gsad_backup.CreateBackupRequest()
+        request = gsad_backup.CreateBackupRequest()
+        assert args[0] == request
 
     # Establish that the response is the type that we expect.
     assert isinstance(response, future.Future)
@@ -3821,6 +4331,54 @@ def test_create_backup_empty_call():
     # Mock the actual call within the gRPC stub, and fake the request.
     with mock.patch.object(type(client.transport.create_backup), "__call__") as call:
         client.create_backup()
+        call.assert_called()
+        _, args, _ = call.mock_calls[0]
+        assert args[0] == gsad_backup.CreateBackupRequest()
+
+
+def test_create_backup_non_empty_request_with_auto_populated_field():
+    # This test is a coverage failsafe to make sure that UUID4 fields are
+    # automatically populated, according to AIP-4235, with non-empty requests.
+    client = DatabaseAdminClient(
+        credentials=ga_credentials.AnonymousCredentials(),
+        transport="grpc",
+    )
+
+    # Populate all string fields in the request which are not UUID4
+    # since we want to check that UUID4 are populated automatically
+    # if they meet the requirements of AIP 4235.
+    request = gsad_backup.CreateBackupRequest(
+        parent="parent_value",
+        backup_id="backup_id_value",
+    )
+
+    # Mock the actual call within the gRPC stub, and fake the request.
+    with mock.patch.object(type(client.transport.create_backup), "__call__") as call:
+        client.create_backup(request=request)
+        call.assert_called()
+        _, args, _ = call.mock_calls[0]
+        assert args[0] == gsad_backup.CreateBackupRequest(
+            parent="parent_value",
+            backup_id="backup_id_value",
+        )
+
+
+@pytest.mark.asyncio
+async def test_create_backup_empty_call_async():
+    # This test is a coverage failsafe to make sure that totally empty calls,
+    # i.e. request == None and no flattened fields passed, work.
+    client = DatabaseAdminAsyncClient(
+        credentials=ga_credentials.AnonymousCredentials(),
+        transport="grpc_asyncio",
+    )
+
+    # Mock the actual call within the gRPC stub, and fake the request.
+    with mock.patch.object(type(client.transport.create_backup), "__call__") as call:
+        # Designate an appropriate return value for the call.
+        call.return_value = grpc_helpers_async.FakeUnaryUnaryCall(
+            operations_pb2.Operation(name="operations/spam")
+        )
+        response = await client.create_backup()
         call.assert_called()
         _, args, _ = call.mock_calls[0]
         assert args[0] == gsad_backup.CreateBackupRequest()
@@ -3850,7 +4408,8 @@ async def test_create_backup_async(
         # Establish that the underlying gRPC stub method was called.
         assert len(call.mock_calls)
         _, args, _ = call.mock_calls[0]
-        assert args[0] == gsad_backup.CreateBackupRequest()
+        request = gsad_backup.CreateBackupRequest()
+        assert args[0] == request
 
     # Establish that the response is the type that we expect.
     assert isinstance(response, future.Future)
@@ -4050,7 +4609,8 @@ def test_copy_backup(request_type, transport: str = "grpc"):
         # Establish that the underlying gRPC stub method was called.
         assert len(call.mock_calls) == 1
         _, args, _ = call.mock_calls[0]
-        assert args[0] == backup.CopyBackupRequest()
+        request = backup.CopyBackupRequest()
+        assert args[0] == request
 
     # Establish that the response is the type that we expect.
     assert isinstance(response, future.Future)
@@ -4067,6 +4627,56 @@ def test_copy_backup_empty_call():
     # Mock the actual call within the gRPC stub, and fake the request.
     with mock.patch.object(type(client.transport.copy_backup), "__call__") as call:
         client.copy_backup()
+        call.assert_called()
+        _, args, _ = call.mock_calls[0]
+        assert args[0] == backup.CopyBackupRequest()
+
+
+def test_copy_backup_non_empty_request_with_auto_populated_field():
+    # This test is a coverage failsafe to make sure that UUID4 fields are
+    # automatically populated, according to AIP-4235, with non-empty requests.
+    client = DatabaseAdminClient(
+        credentials=ga_credentials.AnonymousCredentials(),
+        transport="grpc",
+    )
+
+    # Populate all string fields in the request which are not UUID4
+    # since we want to check that UUID4 are populated automatically
+    # if they meet the requirements of AIP 4235.
+    request = backup.CopyBackupRequest(
+        parent="parent_value",
+        backup_id="backup_id_value",
+        source_backup="source_backup_value",
+    )
+
+    # Mock the actual call within the gRPC stub, and fake the request.
+    with mock.patch.object(type(client.transport.copy_backup), "__call__") as call:
+        client.copy_backup(request=request)
+        call.assert_called()
+        _, args, _ = call.mock_calls[0]
+        assert args[0] == backup.CopyBackupRequest(
+            parent="parent_value",
+            backup_id="backup_id_value",
+            source_backup="source_backup_value",
+        )
+
+
+@pytest.mark.asyncio
+async def test_copy_backup_empty_call_async():
+    # This test is a coverage failsafe to make sure that totally empty calls,
+    # i.e. request == None and no flattened fields passed, work.
+    client = DatabaseAdminAsyncClient(
+        credentials=ga_credentials.AnonymousCredentials(),
+        transport="grpc_asyncio",
+    )
+
+    # Mock the actual call within the gRPC stub, and fake the request.
+    with mock.patch.object(type(client.transport.copy_backup), "__call__") as call:
+        # Designate an appropriate return value for the call.
+        call.return_value = grpc_helpers_async.FakeUnaryUnaryCall(
+            operations_pb2.Operation(name="operations/spam")
+        )
+        response = await client.copy_backup()
         call.assert_called()
         _, args, _ = call.mock_calls[0]
         assert args[0] == backup.CopyBackupRequest()
@@ -4096,7 +4706,8 @@ async def test_copy_backup_async(
         # Establish that the underlying gRPC stub method was called.
         assert len(call.mock_calls)
         _, args, _ = call.mock_calls[0]
-        assert args[0] == backup.CopyBackupRequest()
+        request = backup.CopyBackupRequest()
+        assert args[0] == request
 
     # Establish that the response is the type that we expect.
     assert isinstance(response, future.Future)
@@ -4314,7 +4925,8 @@ def test_get_backup(request_type, transport: str = "grpc"):
         # Establish that the underlying gRPC stub method was called.
         assert len(call.mock_calls) == 1
         _, args, _ = call.mock_calls[0]
-        assert args[0] == backup.GetBackupRequest()
+        request = backup.GetBackupRequest()
+        assert args[0] == request
 
     # Establish that the response is the type that we expect.
     assert isinstance(response, backup.Backup)
@@ -4338,6 +4950,60 @@ def test_get_backup_empty_call():
     # Mock the actual call within the gRPC stub, and fake the request.
     with mock.patch.object(type(client.transport.get_backup), "__call__") as call:
         client.get_backup()
+        call.assert_called()
+        _, args, _ = call.mock_calls[0]
+        assert args[0] == backup.GetBackupRequest()
+
+
+def test_get_backup_non_empty_request_with_auto_populated_field():
+    # This test is a coverage failsafe to make sure that UUID4 fields are
+    # automatically populated, according to AIP-4235, with non-empty requests.
+    client = DatabaseAdminClient(
+        credentials=ga_credentials.AnonymousCredentials(),
+        transport="grpc",
+    )
+
+    # Populate all string fields in the request which are not UUID4
+    # since we want to check that UUID4 are populated automatically
+    # if they meet the requirements of AIP 4235.
+    request = backup.GetBackupRequest(
+        name="name_value",
+    )
+
+    # Mock the actual call within the gRPC stub, and fake the request.
+    with mock.patch.object(type(client.transport.get_backup), "__call__") as call:
+        client.get_backup(request=request)
+        call.assert_called()
+        _, args, _ = call.mock_calls[0]
+        assert args[0] == backup.GetBackupRequest(
+            name="name_value",
+        )
+
+
+@pytest.mark.asyncio
+async def test_get_backup_empty_call_async():
+    # This test is a coverage failsafe to make sure that totally empty calls,
+    # i.e. request == None and no flattened fields passed, work.
+    client = DatabaseAdminAsyncClient(
+        credentials=ga_credentials.AnonymousCredentials(),
+        transport="grpc_asyncio",
+    )
+
+    # Mock the actual call within the gRPC stub, and fake the request.
+    with mock.patch.object(type(client.transport.get_backup), "__call__") as call:
+        # Designate an appropriate return value for the call.
+        call.return_value = grpc_helpers_async.FakeUnaryUnaryCall(
+            backup.Backup(
+                database="database_value",
+                name="name_value",
+                size_bytes=1089,
+                state=backup.Backup.State.CREATING,
+                referencing_databases=["referencing_databases_value"],
+                database_dialect=common.DatabaseDialect.GOOGLE_STANDARD_SQL,
+                referencing_backups=["referencing_backups_value"],
+            )
+        )
+        response = await client.get_backup()
         call.assert_called()
         _, args, _ = call.mock_calls[0]
         assert args[0] == backup.GetBackupRequest()
@@ -4375,7 +5041,8 @@ async def test_get_backup_async(
         # Establish that the underlying gRPC stub method was called.
         assert len(call.mock_calls)
         _, args, _ = call.mock_calls[0]
-        assert args[0] == backup.GetBackupRequest()
+        request = backup.GetBackupRequest()
+        assert args[0] == request
 
     # Establish that the response is the type that we expect.
     assert isinstance(response, backup.Backup)
@@ -4566,7 +5233,8 @@ def test_update_backup(request_type, transport: str = "grpc"):
         # Establish that the underlying gRPC stub method was called.
         assert len(call.mock_calls) == 1
         _, args, _ = call.mock_calls[0]
-        assert args[0] == gsad_backup.UpdateBackupRequest()
+        request = gsad_backup.UpdateBackupRequest()
+        assert args[0] == request
 
     # Establish that the response is the type that we expect.
     assert isinstance(response, gsad_backup.Backup)
@@ -4590,6 +5258,56 @@ def test_update_backup_empty_call():
     # Mock the actual call within the gRPC stub, and fake the request.
     with mock.patch.object(type(client.transport.update_backup), "__call__") as call:
         client.update_backup()
+        call.assert_called()
+        _, args, _ = call.mock_calls[0]
+        assert args[0] == gsad_backup.UpdateBackupRequest()
+
+
+def test_update_backup_non_empty_request_with_auto_populated_field():
+    # This test is a coverage failsafe to make sure that UUID4 fields are
+    # automatically populated, according to AIP-4235, with non-empty requests.
+    client = DatabaseAdminClient(
+        credentials=ga_credentials.AnonymousCredentials(),
+        transport="grpc",
+    )
+
+    # Populate all string fields in the request which are not UUID4
+    # since we want to check that UUID4 are populated automatically
+    # if they meet the requirements of AIP 4235.
+    request = gsad_backup.UpdateBackupRequest()
+
+    # Mock the actual call within the gRPC stub, and fake the request.
+    with mock.patch.object(type(client.transport.update_backup), "__call__") as call:
+        client.update_backup(request=request)
+        call.assert_called()
+        _, args, _ = call.mock_calls[0]
+        assert args[0] == gsad_backup.UpdateBackupRequest()
+
+
+@pytest.mark.asyncio
+async def test_update_backup_empty_call_async():
+    # This test is a coverage failsafe to make sure that totally empty calls,
+    # i.e. request == None and no flattened fields passed, work.
+    client = DatabaseAdminAsyncClient(
+        credentials=ga_credentials.AnonymousCredentials(),
+        transport="grpc_asyncio",
+    )
+
+    # Mock the actual call within the gRPC stub, and fake the request.
+    with mock.patch.object(type(client.transport.update_backup), "__call__") as call:
+        # Designate an appropriate return value for the call.
+        call.return_value = grpc_helpers_async.FakeUnaryUnaryCall(
+            gsad_backup.Backup(
+                database="database_value",
+                name="name_value",
+                size_bytes=1089,
+                state=gsad_backup.Backup.State.CREATING,
+                referencing_databases=["referencing_databases_value"],
+                database_dialect=common.DatabaseDialect.GOOGLE_STANDARD_SQL,
+                referencing_backups=["referencing_backups_value"],
+            )
+        )
+        response = await client.update_backup()
         call.assert_called()
         _, args, _ = call.mock_calls[0]
         assert args[0] == gsad_backup.UpdateBackupRequest()
@@ -4627,7 +5345,8 @@ async def test_update_backup_async(
         # Establish that the underlying gRPC stub method was called.
         assert len(call.mock_calls)
         _, args, _ = call.mock_calls[0]
-        assert args[0] == gsad_backup.UpdateBackupRequest()
+        request = gsad_backup.UpdateBackupRequest()
+        assert args[0] == request
 
     # Establish that the response is the type that we expect.
     assert isinstance(response, gsad_backup.Backup)
@@ -4820,7 +5539,8 @@ def test_delete_backup(request_type, transport: str = "grpc"):
         # Establish that the underlying gRPC stub method was called.
         assert len(call.mock_calls) == 1
         _, args, _ = call.mock_calls[0]
-        assert args[0] == backup.DeleteBackupRequest()
+        request = backup.DeleteBackupRequest()
+        assert args[0] == request
 
     # Establish that the response is the type that we expect.
     assert response is None
@@ -4837,6 +5557,50 @@ def test_delete_backup_empty_call():
     # Mock the actual call within the gRPC stub, and fake the request.
     with mock.patch.object(type(client.transport.delete_backup), "__call__") as call:
         client.delete_backup()
+        call.assert_called()
+        _, args, _ = call.mock_calls[0]
+        assert args[0] == backup.DeleteBackupRequest()
+
+
+def test_delete_backup_non_empty_request_with_auto_populated_field():
+    # This test is a coverage failsafe to make sure that UUID4 fields are
+    # automatically populated, according to AIP-4235, with non-empty requests.
+    client = DatabaseAdminClient(
+        credentials=ga_credentials.AnonymousCredentials(),
+        transport="grpc",
+    )
+
+    # Populate all string fields in the request which are not UUID4
+    # since we want to check that UUID4 are populated automatically
+    # if they meet the requirements of AIP 4235.
+    request = backup.DeleteBackupRequest(
+        name="name_value",
+    )
+
+    # Mock the actual call within the gRPC stub, and fake the request.
+    with mock.patch.object(type(client.transport.delete_backup), "__call__") as call:
+        client.delete_backup(request=request)
+        call.assert_called()
+        _, args, _ = call.mock_calls[0]
+        assert args[0] == backup.DeleteBackupRequest(
+            name="name_value",
+        )
+
+
+@pytest.mark.asyncio
+async def test_delete_backup_empty_call_async():
+    # This test is a coverage failsafe to make sure that totally empty calls,
+    # i.e. request == None and no flattened fields passed, work.
+    client = DatabaseAdminAsyncClient(
+        credentials=ga_credentials.AnonymousCredentials(),
+        transport="grpc_asyncio",
+    )
+
+    # Mock the actual call within the gRPC stub, and fake the request.
+    with mock.patch.object(type(client.transport.delete_backup), "__call__") as call:
+        # Designate an appropriate return value for the call.
+        call.return_value = grpc_helpers_async.FakeUnaryUnaryCall(None)
+        response = await client.delete_backup()
         call.assert_called()
         _, args, _ = call.mock_calls[0]
         assert args[0] == backup.DeleteBackupRequest()
@@ -4864,7 +5628,8 @@ async def test_delete_backup_async(
         # Establish that the underlying gRPC stub method was called.
         assert len(call.mock_calls)
         _, args, _ = call.mock_calls[0]
-        assert args[0] == backup.DeleteBackupRequest()
+        request = backup.DeleteBackupRequest()
+        assert args[0] == request
 
     # Establish that the response is the type that we expect.
     assert response is None
@@ -5042,7 +5807,8 @@ def test_list_backups(request_type, transport: str = "grpc"):
         # Establish that the underlying gRPC stub method was called.
         assert len(call.mock_calls) == 1
         _, args, _ = call.mock_calls[0]
-        assert args[0] == backup.ListBackupsRequest()
+        request = backup.ListBackupsRequest()
+        assert args[0] == request
 
     # Establish that the response is the type that we expect.
     assert isinstance(response, pagers.ListBackupsPager)
@@ -5060,6 +5826,58 @@ def test_list_backups_empty_call():
     # Mock the actual call within the gRPC stub, and fake the request.
     with mock.patch.object(type(client.transport.list_backups), "__call__") as call:
         client.list_backups()
+        call.assert_called()
+        _, args, _ = call.mock_calls[0]
+        assert args[0] == backup.ListBackupsRequest()
+
+
+def test_list_backups_non_empty_request_with_auto_populated_field():
+    # This test is a coverage failsafe to make sure that UUID4 fields are
+    # automatically populated, according to AIP-4235, with non-empty requests.
+    client = DatabaseAdminClient(
+        credentials=ga_credentials.AnonymousCredentials(),
+        transport="grpc",
+    )
+
+    # Populate all string fields in the request which are not UUID4
+    # since we want to check that UUID4 are populated automatically
+    # if they meet the requirements of AIP 4235.
+    request = backup.ListBackupsRequest(
+        parent="parent_value",
+        filter="filter_value",
+        page_token="page_token_value",
+    )
+
+    # Mock the actual call within the gRPC stub, and fake the request.
+    with mock.patch.object(type(client.transport.list_backups), "__call__") as call:
+        client.list_backups(request=request)
+        call.assert_called()
+        _, args, _ = call.mock_calls[0]
+        assert args[0] == backup.ListBackupsRequest(
+            parent="parent_value",
+            filter="filter_value",
+            page_token="page_token_value",
+        )
+
+
+@pytest.mark.asyncio
+async def test_list_backups_empty_call_async():
+    # This test is a coverage failsafe to make sure that totally empty calls,
+    # i.e. request == None and no flattened fields passed, work.
+    client = DatabaseAdminAsyncClient(
+        credentials=ga_credentials.AnonymousCredentials(),
+        transport="grpc_asyncio",
+    )
+
+    # Mock the actual call within the gRPC stub, and fake the request.
+    with mock.patch.object(type(client.transport.list_backups), "__call__") as call:
+        # Designate an appropriate return value for the call.
+        call.return_value = grpc_helpers_async.FakeUnaryUnaryCall(
+            backup.ListBackupsResponse(
+                next_page_token="next_page_token_value",
+            )
+        )
+        response = await client.list_backups()
         call.assert_called()
         _, args, _ = call.mock_calls[0]
         assert args[0] == backup.ListBackupsRequest()
@@ -5091,7 +5909,8 @@ async def test_list_backups_async(
         # Establish that the underlying gRPC stub method was called.
         assert len(call.mock_calls)
         _, args, _ = call.mock_calls[0]
-        assert args[0] == backup.ListBackupsRequest()
+        request = backup.ListBackupsRequest()
+        assert args[0] == request
 
     # Establish that the response is the type that we expect.
     assert isinstance(response, pagers.ListBackupsAsyncPager)
@@ -5462,7 +6281,8 @@ def test_restore_database(request_type, transport: str = "grpc"):
         # Establish that the underlying gRPC stub method was called.
         assert len(call.mock_calls) == 1
         _, args, _ = call.mock_calls[0]
-        assert args[0] == spanner_database_admin.RestoreDatabaseRequest()
+        request = spanner_database_admin.RestoreDatabaseRequest()
+        assert args[0] == request
 
     # Establish that the response is the type that we expect.
     assert isinstance(response, future.Future)
@@ -5479,6 +6299,56 @@ def test_restore_database_empty_call():
     # Mock the actual call within the gRPC stub, and fake the request.
     with mock.patch.object(type(client.transport.restore_database), "__call__") as call:
         client.restore_database()
+        call.assert_called()
+        _, args, _ = call.mock_calls[0]
+        assert args[0] == spanner_database_admin.RestoreDatabaseRequest()
+
+
+def test_restore_database_non_empty_request_with_auto_populated_field():
+    # This test is a coverage failsafe to make sure that UUID4 fields are
+    # automatically populated, according to AIP-4235, with non-empty requests.
+    client = DatabaseAdminClient(
+        credentials=ga_credentials.AnonymousCredentials(),
+        transport="grpc",
+    )
+
+    # Populate all string fields in the request which are not UUID4
+    # since we want to check that UUID4 are populated automatically
+    # if they meet the requirements of AIP 4235.
+    request = spanner_database_admin.RestoreDatabaseRequest(
+        parent="parent_value",
+        database_id="database_id_value",
+        backup="backup_value",
+    )
+
+    # Mock the actual call within the gRPC stub, and fake the request.
+    with mock.patch.object(type(client.transport.restore_database), "__call__") as call:
+        client.restore_database(request=request)
+        call.assert_called()
+        _, args, _ = call.mock_calls[0]
+        assert args[0] == spanner_database_admin.RestoreDatabaseRequest(
+            parent="parent_value",
+            database_id="database_id_value",
+            backup="backup_value",
+        )
+
+
+@pytest.mark.asyncio
+async def test_restore_database_empty_call_async():
+    # This test is a coverage failsafe to make sure that totally empty calls,
+    # i.e. request == None and no flattened fields passed, work.
+    client = DatabaseAdminAsyncClient(
+        credentials=ga_credentials.AnonymousCredentials(),
+        transport="grpc_asyncio",
+    )
+
+    # Mock the actual call within the gRPC stub, and fake the request.
+    with mock.patch.object(type(client.transport.restore_database), "__call__") as call:
+        # Designate an appropriate return value for the call.
+        call.return_value = grpc_helpers_async.FakeUnaryUnaryCall(
+            operations_pb2.Operation(name="operations/spam")
+        )
+        response = await client.restore_database()
         call.assert_called()
         _, args, _ = call.mock_calls[0]
         assert args[0] == spanner_database_admin.RestoreDatabaseRequest()
@@ -5509,7 +6379,8 @@ async def test_restore_database_async(
         # Establish that the underlying gRPC stub method was called.
         assert len(call.mock_calls)
         _, args, _ = call.mock_calls[0]
-        assert args[0] == spanner_database_admin.RestoreDatabaseRequest()
+        request = spanner_database_admin.RestoreDatabaseRequest()
+        assert args[0] == request
 
     # Establish that the response is the type that we expect.
     assert isinstance(response, future.Future)
@@ -5709,7 +6580,8 @@ def test_list_database_operations(request_type, transport: str = "grpc"):
         # Establish that the underlying gRPC stub method was called.
         assert len(call.mock_calls) == 1
         _, args, _ = call.mock_calls[0]
-        assert args[0] == spanner_database_admin.ListDatabaseOperationsRequest()
+        request = spanner_database_admin.ListDatabaseOperationsRequest()
+        assert args[0] == request
 
     # Establish that the response is the type that we expect.
     assert isinstance(response, pagers.ListDatabaseOperationsPager)
@@ -5729,6 +6601,62 @@ def test_list_database_operations_empty_call():
         type(client.transport.list_database_operations), "__call__"
     ) as call:
         client.list_database_operations()
+        call.assert_called()
+        _, args, _ = call.mock_calls[0]
+        assert args[0] == spanner_database_admin.ListDatabaseOperationsRequest()
+
+
+def test_list_database_operations_non_empty_request_with_auto_populated_field():
+    # This test is a coverage failsafe to make sure that UUID4 fields are
+    # automatically populated, according to AIP-4235, with non-empty requests.
+    client = DatabaseAdminClient(
+        credentials=ga_credentials.AnonymousCredentials(),
+        transport="grpc",
+    )
+
+    # Populate all string fields in the request which are not UUID4
+    # since we want to check that UUID4 are populated automatically
+    # if they meet the requirements of AIP 4235.
+    request = spanner_database_admin.ListDatabaseOperationsRequest(
+        parent="parent_value",
+        filter="filter_value",
+        page_token="page_token_value",
+    )
+
+    # Mock the actual call within the gRPC stub, and fake the request.
+    with mock.patch.object(
+        type(client.transport.list_database_operations), "__call__"
+    ) as call:
+        client.list_database_operations(request=request)
+        call.assert_called()
+        _, args, _ = call.mock_calls[0]
+        assert args[0] == spanner_database_admin.ListDatabaseOperationsRequest(
+            parent="parent_value",
+            filter="filter_value",
+            page_token="page_token_value",
+        )
+
+
+@pytest.mark.asyncio
+async def test_list_database_operations_empty_call_async():
+    # This test is a coverage failsafe to make sure that totally empty calls,
+    # i.e. request == None and no flattened fields passed, work.
+    client = DatabaseAdminAsyncClient(
+        credentials=ga_credentials.AnonymousCredentials(),
+        transport="grpc_asyncio",
+    )
+
+    # Mock the actual call within the gRPC stub, and fake the request.
+    with mock.patch.object(
+        type(client.transport.list_database_operations), "__call__"
+    ) as call:
+        # Designate an appropriate return value for the call.
+        call.return_value = grpc_helpers_async.FakeUnaryUnaryCall(
+            spanner_database_admin.ListDatabaseOperationsResponse(
+                next_page_token="next_page_token_value",
+            )
+        )
+        response = await client.list_database_operations()
         call.assert_called()
         _, args, _ = call.mock_calls[0]
         assert args[0] == spanner_database_admin.ListDatabaseOperationsRequest()
@@ -5763,7 +6691,8 @@ async def test_list_database_operations_async(
         # Establish that the underlying gRPC stub method was called.
         assert len(call.mock_calls)
         _, args, _ = call.mock_calls[0]
-        assert args[0] == spanner_database_admin.ListDatabaseOperationsRequest()
+        request = spanner_database_admin.ListDatabaseOperationsRequest()
+        assert args[0] == request
 
     # Establish that the response is the type that we expect.
     assert isinstance(response, pagers.ListDatabaseOperationsAsyncPager)
@@ -6154,7 +7083,8 @@ def test_list_backup_operations(request_type, transport: str = "grpc"):
         # Establish that the underlying gRPC stub method was called.
         assert len(call.mock_calls) == 1
         _, args, _ = call.mock_calls[0]
-        assert args[0] == backup.ListBackupOperationsRequest()
+        request = backup.ListBackupOperationsRequest()
+        assert args[0] == request
 
     # Establish that the response is the type that we expect.
     assert isinstance(response, pagers.ListBackupOperationsPager)
@@ -6174,6 +7104,62 @@ def test_list_backup_operations_empty_call():
         type(client.transport.list_backup_operations), "__call__"
     ) as call:
         client.list_backup_operations()
+        call.assert_called()
+        _, args, _ = call.mock_calls[0]
+        assert args[0] == backup.ListBackupOperationsRequest()
+
+
+def test_list_backup_operations_non_empty_request_with_auto_populated_field():
+    # This test is a coverage failsafe to make sure that UUID4 fields are
+    # automatically populated, according to AIP-4235, with non-empty requests.
+    client = DatabaseAdminClient(
+        credentials=ga_credentials.AnonymousCredentials(),
+        transport="grpc",
+    )
+
+    # Populate all string fields in the request which are not UUID4
+    # since we want to check that UUID4 are populated automatically
+    # if they meet the requirements of AIP 4235.
+    request = backup.ListBackupOperationsRequest(
+        parent="parent_value",
+        filter="filter_value",
+        page_token="page_token_value",
+    )
+
+    # Mock the actual call within the gRPC stub, and fake the request.
+    with mock.patch.object(
+        type(client.transport.list_backup_operations), "__call__"
+    ) as call:
+        client.list_backup_operations(request=request)
+        call.assert_called()
+        _, args, _ = call.mock_calls[0]
+        assert args[0] == backup.ListBackupOperationsRequest(
+            parent="parent_value",
+            filter="filter_value",
+            page_token="page_token_value",
+        )
+
+
+@pytest.mark.asyncio
+async def test_list_backup_operations_empty_call_async():
+    # This test is a coverage failsafe to make sure that totally empty calls,
+    # i.e. request == None and no flattened fields passed, work.
+    client = DatabaseAdminAsyncClient(
+        credentials=ga_credentials.AnonymousCredentials(),
+        transport="grpc_asyncio",
+    )
+
+    # Mock the actual call within the gRPC stub, and fake the request.
+    with mock.patch.object(
+        type(client.transport.list_backup_operations), "__call__"
+    ) as call:
+        # Designate an appropriate return value for the call.
+        call.return_value = grpc_helpers_async.FakeUnaryUnaryCall(
+            backup.ListBackupOperationsResponse(
+                next_page_token="next_page_token_value",
+            )
+        )
+        response = await client.list_backup_operations()
         call.assert_called()
         _, args, _ = call.mock_calls[0]
         assert args[0] == backup.ListBackupOperationsRequest()
@@ -6207,7 +7193,8 @@ async def test_list_backup_operations_async(
         # Establish that the underlying gRPC stub method was called.
         assert len(call.mock_calls)
         _, args, _ = call.mock_calls[0]
-        assert args[0] == backup.ListBackupOperationsRequest()
+        request = backup.ListBackupOperationsRequest()
+        assert args[0] == request
 
     # Establish that the response is the type that we expect.
     assert isinstance(response, pagers.ListBackupOperationsAsyncPager)
@@ -6598,7 +7585,8 @@ def test_list_database_roles(request_type, transport: str = "grpc"):
         # Establish that the underlying gRPC stub method was called.
         assert len(call.mock_calls) == 1
         _, args, _ = call.mock_calls[0]
-        assert args[0] == spanner_database_admin.ListDatabaseRolesRequest()
+        request = spanner_database_admin.ListDatabaseRolesRequest()
+        assert args[0] == request
 
     # Establish that the response is the type that we expect.
     assert isinstance(response, pagers.ListDatabaseRolesPager)
@@ -6618,6 +7606,60 @@ def test_list_database_roles_empty_call():
         type(client.transport.list_database_roles), "__call__"
     ) as call:
         client.list_database_roles()
+        call.assert_called()
+        _, args, _ = call.mock_calls[0]
+        assert args[0] == spanner_database_admin.ListDatabaseRolesRequest()
+
+
+def test_list_database_roles_non_empty_request_with_auto_populated_field():
+    # This test is a coverage failsafe to make sure that UUID4 fields are
+    # automatically populated, according to AIP-4235, with non-empty requests.
+    client = DatabaseAdminClient(
+        credentials=ga_credentials.AnonymousCredentials(),
+        transport="grpc",
+    )
+
+    # Populate all string fields in the request which are not UUID4
+    # since we want to check that UUID4 are populated automatically
+    # if they meet the requirements of AIP 4235.
+    request = spanner_database_admin.ListDatabaseRolesRequest(
+        parent="parent_value",
+        page_token="page_token_value",
+    )
+
+    # Mock the actual call within the gRPC stub, and fake the request.
+    with mock.patch.object(
+        type(client.transport.list_database_roles), "__call__"
+    ) as call:
+        client.list_database_roles(request=request)
+        call.assert_called()
+        _, args, _ = call.mock_calls[0]
+        assert args[0] == spanner_database_admin.ListDatabaseRolesRequest(
+            parent="parent_value",
+            page_token="page_token_value",
+        )
+
+
+@pytest.mark.asyncio
+async def test_list_database_roles_empty_call_async():
+    # This test is a coverage failsafe to make sure that totally empty calls,
+    # i.e. request == None and no flattened fields passed, work.
+    client = DatabaseAdminAsyncClient(
+        credentials=ga_credentials.AnonymousCredentials(),
+        transport="grpc_asyncio",
+    )
+
+    # Mock the actual call within the gRPC stub, and fake the request.
+    with mock.patch.object(
+        type(client.transport.list_database_roles), "__call__"
+    ) as call:
+        # Designate an appropriate return value for the call.
+        call.return_value = grpc_helpers_async.FakeUnaryUnaryCall(
+            spanner_database_admin.ListDatabaseRolesResponse(
+                next_page_token="next_page_token_value",
+            )
+        )
+        response = await client.list_database_roles()
         call.assert_called()
         _, args, _ = call.mock_calls[0]
         assert args[0] == spanner_database_admin.ListDatabaseRolesRequest()
@@ -6652,7 +7694,8 @@ async def test_list_database_roles_async(
         # Establish that the underlying gRPC stub method was called.
         assert len(call.mock_calls)
         _, args, _ = call.mock_calls[0]
-        assert args[0] == spanner_database_admin.ListDatabaseRolesRequest()
+        request = spanner_database_admin.ListDatabaseRolesRequest()
+        assert args[0] == request
 
     # Establish that the response is the type that we expect.
     assert isinstance(response, pagers.ListDatabaseRolesAsyncPager)

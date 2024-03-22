@@ -1164,7 +1164,8 @@ def test_list_instance_configs(request_type, transport: str = "grpc"):
         # Establish that the underlying gRPC stub method was called.
         assert len(call.mock_calls) == 1
         _, args, _ = call.mock_calls[0]
-        assert args[0] == spanner_instance_admin.ListInstanceConfigsRequest()
+        request = spanner_instance_admin.ListInstanceConfigsRequest()
+        assert args[0] == request
 
     # Establish that the response is the type that we expect.
     assert isinstance(response, pagers.ListInstanceConfigsPager)
@@ -1184,6 +1185,60 @@ def test_list_instance_configs_empty_call():
         type(client.transport.list_instance_configs), "__call__"
     ) as call:
         client.list_instance_configs()
+        call.assert_called()
+        _, args, _ = call.mock_calls[0]
+        assert args[0] == spanner_instance_admin.ListInstanceConfigsRequest()
+
+
+def test_list_instance_configs_non_empty_request_with_auto_populated_field():
+    # This test is a coverage failsafe to make sure that UUID4 fields are
+    # automatically populated, according to AIP-4235, with non-empty requests.
+    client = InstanceAdminClient(
+        credentials=ga_credentials.AnonymousCredentials(),
+        transport="grpc",
+    )
+
+    # Populate all string fields in the request which are not UUID4
+    # since we want to check that UUID4 are populated automatically
+    # if they meet the requirements of AIP 4235.
+    request = spanner_instance_admin.ListInstanceConfigsRequest(
+        parent="parent_value",
+        page_token="page_token_value",
+    )
+
+    # Mock the actual call within the gRPC stub, and fake the request.
+    with mock.patch.object(
+        type(client.transport.list_instance_configs), "__call__"
+    ) as call:
+        client.list_instance_configs(request=request)
+        call.assert_called()
+        _, args, _ = call.mock_calls[0]
+        assert args[0] == spanner_instance_admin.ListInstanceConfigsRequest(
+            parent="parent_value",
+            page_token="page_token_value",
+        )
+
+
+@pytest.mark.asyncio
+async def test_list_instance_configs_empty_call_async():
+    # This test is a coverage failsafe to make sure that totally empty calls,
+    # i.e. request == None and no flattened fields passed, work.
+    client = InstanceAdminAsyncClient(
+        credentials=ga_credentials.AnonymousCredentials(),
+        transport="grpc_asyncio",
+    )
+
+    # Mock the actual call within the gRPC stub, and fake the request.
+    with mock.patch.object(
+        type(client.transport.list_instance_configs), "__call__"
+    ) as call:
+        # Designate an appropriate return value for the call.
+        call.return_value = grpc_helpers_async.FakeUnaryUnaryCall(
+            spanner_instance_admin.ListInstanceConfigsResponse(
+                next_page_token="next_page_token_value",
+            )
+        )
+        response = await client.list_instance_configs()
         call.assert_called()
         _, args, _ = call.mock_calls[0]
         assert args[0] == spanner_instance_admin.ListInstanceConfigsRequest()
@@ -1218,7 +1273,8 @@ async def test_list_instance_configs_async(
         # Establish that the underlying gRPC stub method was called.
         assert len(call.mock_calls)
         _, args, _ = call.mock_calls[0]
-        assert args[0] == spanner_instance_admin.ListInstanceConfigsRequest()
+        request = spanner_instance_admin.ListInstanceConfigsRequest()
+        assert args[0] == request
 
     # Establish that the response is the type that we expect.
     assert isinstance(response, pagers.ListInstanceConfigsAsyncPager)
@@ -1620,7 +1676,8 @@ def test_get_instance_config(request_type, transport: str = "grpc"):
         # Establish that the underlying gRPC stub method was called.
         assert len(call.mock_calls) == 1
         _, args, _ = call.mock_calls[0]
-        assert args[0] == spanner_instance_admin.GetInstanceConfigRequest()
+        request = spanner_instance_admin.GetInstanceConfigRequest()
+        assert args[0] == request
 
     # Establish that the response is the type that we expect.
     assert isinstance(response, spanner_instance_admin.InstanceConfig)
@@ -1650,6 +1707,65 @@ def test_get_instance_config_empty_call():
         type(client.transport.get_instance_config), "__call__"
     ) as call:
         client.get_instance_config()
+        call.assert_called()
+        _, args, _ = call.mock_calls[0]
+        assert args[0] == spanner_instance_admin.GetInstanceConfigRequest()
+
+
+def test_get_instance_config_non_empty_request_with_auto_populated_field():
+    # This test is a coverage failsafe to make sure that UUID4 fields are
+    # automatically populated, according to AIP-4235, with non-empty requests.
+    client = InstanceAdminClient(
+        credentials=ga_credentials.AnonymousCredentials(),
+        transport="grpc",
+    )
+
+    # Populate all string fields in the request which are not UUID4
+    # since we want to check that UUID4 are populated automatically
+    # if they meet the requirements of AIP 4235.
+    request = spanner_instance_admin.GetInstanceConfigRequest(
+        name="name_value",
+    )
+
+    # Mock the actual call within the gRPC stub, and fake the request.
+    with mock.patch.object(
+        type(client.transport.get_instance_config), "__call__"
+    ) as call:
+        client.get_instance_config(request=request)
+        call.assert_called()
+        _, args, _ = call.mock_calls[0]
+        assert args[0] == spanner_instance_admin.GetInstanceConfigRequest(
+            name="name_value",
+        )
+
+
+@pytest.mark.asyncio
+async def test_get_instance_config_empty_call_async():
+    # This test is a coverage failsafe to make sure that totally empty calls,
+    # i.e. request == None and no flattened fields passed, work.
+    client = InstanceAdminAsyncClient(
+        credentials=ga_credentials.AnonymousCredentials(),
+        transport="grpc_asyncio",
+    )
+
+    # Mock the actual call within the gRPC stub, and fake the request.
+    with mock.patch.object(
+        type(client.transport.get_instance_config), "__call__"
+    ) as call:
+        # Designate an appropriate return value for the call.
+        call.return_value = grpc_helpers_async.FakeUnaryUnaryCall(
+            spanner_instance_admin.InstanceConfig(
+                name="name_value",
+                display_name="display_name_value",
+                config_type=spanner_instance_admin.InstanceConfig.Type.GOOGLE_MANAGED,
+                base_config="base_config_value",
+                etag="etag_value",
+                leader_options=["leader_options_value"],
+                reconciling=True,
+                state=spanner_instance_admin.InstanceConfig.State.CREATING,
+            )
+        )
+        response = await client.get_instance_config()
         call.assert_called()
         _, args, _ = call.mock_calls[0]
         assert args[0] == spanner_instance_admin.GetInstanceConfigRequest()
@@ -1691,7 +1807,8 @@ async def test_get_instance_config_async(
         # Establish that the underlying gRPC stub method was called.
         assert len(call.mock_calls)
         _, args, _ = call.mock_calls[0]
-        assert args[0] == spanner_instance_admin.GetInstanceConfigRequest()
+        request = spanner_instance_admin.GetInstanceConfigRequest()
+        assert args[0] == request
 
     # Establish that the response is the type that we expect.
     assert isinstance(response, spanner_instance_admin.InstanceConfig)
@@ -1892,7 +2009,8 @@ def test_create_instance_config(request_type, transport: str = "grpc"):
         # Establish that the underlying gRPC stub method was called.
         assert len(call.mock_calls) == 1
         _, args, _ = call.mock_calls[0]
-        assert args[0] == spanner_instance_admin.CreateInstanceConfigRequest()
+        request = spanner_instance_admin.CreateInstanceConfigRequest()
+        assert args[0] == request
 
     # Establish that the response is the type that we expect.
     assert isinstance(response, future.Future)
@@ -1911,6 +2029,58 @@ def test_create_instance_config_empty_call():
         type(client.transport.create_instance_config), "__call__"
     ) as call:
         client.create_instance_config()
+        call.assert_called()
+        _, args, _ = call.mock_calls[0]
+        assert args[0] == spanner_instance_admin.CreateInstanceConfigRequest()
+
+
+def test_create_instance_config_non_empty_request_with_auto_populated_field():
+    # This test is a coverage failsafe to make sure that UUID4 fields are
+    # automatically populated, according to AIP-4235, with non-empty requests.
+    client = InstanceAdminClient(
+        credentials=ga_credentials.AnonymousCredentials(),
+        transport="grpc",
+    )
+
+    # Populate all string fields in the request which are not UUID4
+    # since we want to check that UUID4 are populated automatically
+    # if they meet the requirements of AIP 4235.
+    request = spanner_instance_admin.CreateInstanceConfigRequest(
+        parent="parent_value",
+        instance_config_id="instance_config_id_value",
+    )
+
+    # Mock the actual call within the gRPC stub, and fake the request.
+    with mock.patch.object(
+        type(client.transport.create_instance_config), "__call__"
+    ) as call:
+        client.create_instance_config(request=request)
+        call.assert_called()
+        _, args, _ = call.mock_calls[0]
+        assert args[0] == spanner_instance_admin.CreateInstanceConfigRequest(
+            parent="parent_value",
+            instance_config_id="instance_config_id_value",
+        )
+
+
+@pytest.mark.asyncio
+async def test_create_instance_config_empty_call_async():
+    # This test is a coverage failsafe to make sure that totally empty calls,
+    # i.e. request == None and no flattened fields passed, work.
+    client = InstanceAdminAsyncClient(
+        credentials=ga_credentials.AnonymousCredentials(),
+        transport="grpc_asyncio",
+    )
+
+    # Mock the actual call within the gRPC stub, and fake the request.
+    with mock.patch.object(
+        type(client.transport.create_instance_config), "__call__"
+    ) as call:
+        # Designate an appropriate return value for the call.
+        call.return_value = grpc_helpers_async.FakeUnaryUnaryCall(
+            operations_pb2.Operation(name="operations/spam")
+        )
+        response = await client.create_instance_config()
         call.assert_called()
         _, args, _ = call.mock_calls[0]
         assert args[0] == spanner_instance_admin.CreateInstanceConfigRequest()
@@ -1943,7 +2113,8 @@ async def test_create_instance_config_async(
         # Establish that the underlying gRPC stub method was called.
         assert len(call.mock_calls)
         _, args, _ = call.mock_calls[0]
-        assert args[0] == spanner_instance_admin.CreateInstanceConfigRequest()
+        request = spanner_instance_admin.CreateInstanceConfigRequest()
+        assert args[0] == request
 
     # Establish that the response is the type that we expect.
     assert isinstance(response, future.Future)
@@ -2153,7 +2324,8 @@ def test_update_instance_config(request_type, transport: str = "grpc"):
         # Establish that the underlying gRPC stub method was called.
         assert len(call.mock_calls) == 1
         _, args, _ = call.mock_calls[0]
-        assert args[0] == spanner_instance_admin.UpdateInstanceConfigRequest()
+        request = spanner_instance_admin.UpdateInstanceConfigRequest()
+        assert args[0] == request
 
     # Establish that the response is the type that we expect.
     assert isinstance(response, future.Future)
@@ -2172,6 +2344,52 @@ def test_update_instance_config_empty_call():
         type(client.transport.update_instance_config), "__call__"
     ) as call:
         client.update_instance_config()
+        call.assert_called()
+        _, args, _ = call.mock_calls[0]
+        assert args[0] == spanner_instance_admin.UpdateInstanceConfigRequest()
+
+
+def test_update_instance_config_non_empty_request_with_auto_populated_field():
+    # This test is a coverage failsafe to make sure that UUID4 fields are
+    # automatically populated, according to AIP-4235, with non-empty requests.
+    client = InstanceAdminClient(
+        credentials=ga_credentials.AnonymousCredentials(),
+        transport="grpc",
+    )
+
+    # Populate all string fields in the request which are not UUID4
+    # since we want to check that UUID4 are populated automatically
+    # if they meet the requirements of AIP 4235.
+    request = spanner_instance_admin.UpdateInstanceConfigRequest()
+
+    # Mock the actual call within the gRPC stub, and fake the request.
+    with mock.patch.object(
+        type(client.transport.update_instance_config), "__call__"
+    ) as call:
+        client.update_instance_config(request=request)
+        call.assert_called()
+        _, args, _ = call.mock_calls[0]
+        assert args[0] == spanner_instance_admin.UpdateInstanceConfigRequest()
+
+
+@pytest.mark.asyncio
+async def test_update_instance_config_empty_call_async():
+    # This test is a coverage failsafe to make sure that totally empty calls,
+    # i.e. request == None and no flattened fields passed, work.
+    client = InstanceAdminAsyncClient(
+        credentials=ga_credentials.AnonymousCredentials(),
+        transport="grpc_asyncio",
+    )
+
+    # Mock the actual call within the gRPC stub, and fake the request.
+    with mock.patch.object(
+        type(client.transport.update_instance_config), "__call__"
+    ) as call:
+        # Designate an appropriate return value for the call.
+        call.return_value = grpc_helpers_async.FakeUnaryUnaryCall(
+            operations_pb2.Operation(name="operations/spam")
+        )
+        response = await client.update_instance_config()
         call.assert_called()
         _, args, _ = call.mock_calls[0]
         assert args[0] == spanner_instance_admin.UpdateInstanceConfigRequest()
@@ -2204,7 +2422,8 @@ async def test_update_instance_config_async(
         # Establish that the underlying gRPC stub method was called.
         assert len(call.mock_calls)
         _, args, _ = call.mock_calls[0]
-        assert args[0] == spanner_instance_admin.UpdateInstanceConfigRequest()
+        request = spanner_instance_admin.UpdateInstanceConfigRequest()
+        assert args[0] == request
 
     # Establish that the response is the type that we expect.
     assert isinstance(response, future.Future)
@@ -2404,7 +2623,8 @@ def test_delete_instance_config(request_type, transport: str = "grpc"):
         # Establish that the underlying gRPC stub method was called.
         assert len(call.mock_calls) == 1
         _, args, _ = call.mock_calls[0]
-        assert args[0] == spanner_instance_admin.DeleteInstanceConfigRequest()
+        request = spanner_instance_admin.DeleteInstanceConfigRequest()
+        assert args[0] == request
 
     # Establish that the response is the type that we expect.
     assert response is None
@@ -2423,6 +2643,56 @@ def test_delete_instance_config_empty_call():
         type(client.transport.delete_instance_config), "__call__"
     ) as call:
         client.delete_instance_config()
+        call.assert_called()
+        _, args, _ = call.mock_calls[0]
+        assert args[0] == spanner_instance_admin.DeleteInstanceConfigRequest()
+
+
+def test_delete_instance_config_non_empty_request_with_auto_populated_field():
+    # This test is a coverage failsafe to make sure that UUID4 fields are
+    # automatically populated, according to AIP-4235, with non-empty requests.
+    client = InstanceAdminClient(
+        credentials=ga_credentials.AnonymousCredentials(),
+        transport="grpc",
+    )
+
+    # Populate all string fields in the request which are not UUID4
+    # since we want to check that UUID4 are populated automatically
+    # if they meet the requirements of AIP 4235.
+    request = spanner_instance_admin.DeleteInstanceConfigRequest(
+        name="name_value",
+        etag="etag_value",
+    )
+
+    # Mock the actual call within the gRPC stub, and fake the request.
+    with mock.patch.object(
+        type(client.transport.delete_instance_config), "__call__"
+    ) as call:
+        client.delete_instance_config(request=request)
+        call.assert_called()
+        _, args, _ = call.mock_calls[0]
+        assert args[0] == spanner_instance_admin.DeleteInstanceConfigRequest(
+            name="name_value",
+            etag="etag_value",
+        )
+
+
+@pytest.mark.asyncio
+async def test_delete_instance_config_empty_call_async():
+    # This test is a coverage failsafe to make sure that totally empty calls,
+    # i.e. request == None and no flattened fields passed, work.
+    client = InstanceAdminAsyncClient(
+        credentials=ga_credentials.AnonymousCredentials(),
+        transport="grpc_asyncio",
+    )
+
+    # Mock the actual call within the gRPC stub, and fake the request.
+    with mock.patch.object(
+        type(client.transport.delete_instance_config), "__call__"
+    ) as call:
+        # Designate an appropriate return value for the call.
+        call.return_value = grpc_helpers_async.FakeUnaryUnaryCall(None)
+        response = await client.delete_instance_config()
         call.assert_called()
         _, args, _ = call.mock_calls[0]
         assert args[0] == spanner_instance_admin.DeleteInstanceConfigRequest()
@@ -2453,7 +2723,8 @@ async def test_delete_instance_config_async(
         # Establish that the underlying gRPC stub method was called.
         assert len(call.mock_calls)
         _, args, _ = call.mock_calls[0]
-        assert args[0] == spanner_instance_admin.DeleteInstanceConfigRequest()
+        request = spanner_instance_admin.DeleteInstanceConfigRequest()
+        assert args[0] == request
 
     # Establish that the response is the type that we expect.
     assert response is None
@@ -2641,7 +2912,8 @@ def test_list_instance_config_operations(request_type, transport: str = "grpc"):
         # Establish that the underlying gRPC stub method was called.
         assert len(call.mock_calls) == 1
         _, args, _ = call.mock_calls[0]
-        assert args[0] == spanner_instance_admin.ListInstanceConfigOperationsRequest()
+        request = spanner_instance_admin.ListInstanceConfigOperationsRequest()
+        assert args[0] == request
 
     # Establish that the response is the type that we expect.
     assert isinstance(response, pagers.ListInstanceConfigOperationsPager)
@@ -2661,6 +2933,62 @@ def test_list_instance_config_operations_empty_call():
         type(client.transport.list_instance_config_operations), "__call__"
     ) as call:
         client.list_instance_config_operations()
+        call.assert_called()
+        _, args, _ = call.mock_calls[0]
+        assert args[0] == spanner_instance_admin.ListInstanceConfigOperationsRequest()
+
+
+def test_list_instance_config_operations_non_empty_request_with_auto_populated_field():
+    # This test is a coverage failsafe to make sure that UUID4 fields are
+    # automatically populated, according to AIP-4235, with non-empty requests.
+    client = InstanceAdminClient(
+        credentials=ga_credentials.AnonymousCredentials(),
+        transport="grpc",
+    )
+
+    # Populate all string fields in the request which are not UUID4
+    # since we want to check that UUID4 are populated automatically
+    # if they meet the requirements of AIP 4235.
+    request = spanner_instance_admin.ListInstanceConfigOperationsRequest(
+        parent="parent_value",
+        filter="filter_value",
+        page_token="page_token_value",
+    )
+
+    # Mock the actual call within the gRPC stub, and fake the request.
+    with mock.patch.object(
+        type(client.transport.list_instance_config_operations), "__call__"
+    ) as call:
+        client.list_instance_config_operations(request=request)
+        call.assert_called()
+        _, args, _ = call.mock_calls[0]
+        assert args[0] == spanner_instance_admin.ListInstanceConfigOperationsRequest(
+            parent="parent_value",
+            filter="filter_value",
+            page_token="page_token_value",
+        )
+
+
+@pytest.mark.asyncio
+async def test_list_instance_config_operations_empty_call_async():
+    # This test is a coverage failsafe to make sure that totally empty calls,
+    # i.e. request == None and no flattened fields passed, work.
+    client = InstanceAdminAsyncClient(
+        credentials=ga_credentials.AnonymousCredentials(),
+        transport="grpc_asyncio",
+    )
+
+    # Mock the actual call within the gRPC stub, and fake the request.
+    with mock.patch.object(
+        type(client.transport.list_instance_config_operations), "__call__"
+    ) as call:
+        # Designate an appropriate return value for the call.
+        call.return_value = grpc_helpers_async.FakeUnaryUnaryCall(
+            spanner_instance_admin.ListInstanceConfigOperationsResponse(
+                next_page_token="next_page_token_value",
+            )
+        )
+        response = await client.list_instance_config_operations()
         call.assert_called()
         _, args, _ = call.mock_calls[0]
         assert args[0] == spanner_instance_admin.ListInstanceConfigOperationsRequest()
@@ -2695,7 +3023,8 @@ async def test_list_instance_config_operations_async(
         # Establish that the underlying gRPC stub method was called.
         assert len(call.mock_calls)
         _, args, _ = call.mock_calls[0]
-        assert args[0] == spanner_instance_admin.ListInstanceConfigOperationsRequest()
+        request = spanner_instance_admin.ListInstanceConfigOperationsRequest()
+        assert args[0] == request
 
     # Establish that the response is the type that we expect.
     assert isinstance(response, pagers.ListInstanceConfigOperationsAsyncPager)
@@ -3091,7 +3420,8 @@ def test_list_instances(request_type, transport: str = "grpc"):
         # Establish that the underlying gRPC stub method was called.
         assert len(call.mock_calls) == 1
         _, args, _ = call.mock_calls[0]
-        assert args[0] == spanner_instance_admin.ListInstancesRequest()
+        request = spanner_instance_admin.ListInstancesRequest()
+        assert args[0] == request
 
     # Establish that the response is the type that we expect.
     assert isinstance(response, pagers.ListInstancesPager)
@@ -3110,6 +3440,59 @@ def test_list_instances_empty_call():
     # Mock the actual call within the gRPC stub, and fake the request.
     with mock.patch.object(type(client.transport.list_instances), "__call__") as call:
         client.list_instances()
+        call.assert_called()
+        _, args, _ = call.mock_calls[0]
+        assert args[0] == spanner_instance_admin.ListInstancesRequest()
+
+
+def test_list_instances_non_empty_request_with_auto_populated_field():
+    # This test is a coverage failsafe to make sure that UUID4 fields are
+    # automatically populated, according to AIP-4235, with non-empty requests.
+    client = InstanceAdminClient(
+        credentials=ga_credentials.AnonymousCredentials(),
+        transport="grpc",
+    )
+
+    # Populate all string fields in the request which are not UUID4
+    # since we want to check that UUID4 are populated automatically
+    # if they meet the requirements of AIP 4235.
+    request = spanner_instance_admin.ListInstancesRequest(
+        parent="parent_value",
+        page_token="page_token_value",
+        filter="filter_value",
+    )
+
+    # Mock the actual call within the gRPC stub, and fake the request.
+    with mock.patch.object(type(client.transport.list_instances), "__call__") as call:
+        client.list_instances(request=request)
+        call.assert_called()
+        _, args, _ = call.mock_calls[0]
+        assert args[0] == spanner_instance_admin.ListInstancesRequest(
+            parent="parent_value",
+            page_token="page_token_value",
+            filter="filter_value",
+        )
+
+
+@pytest.mark.asyncio
+async def test_list_instances_empty_call_async():
+    # This test is a coverage failsafe to make sure that totally empty calls,
+    # i.e. request == None and no flattened fields passed, work.
+    client = InstanceAdminAsyncClient(
+        credentials=ga_credentials.AnonymousCredentials(),
+        transport="grpc_asyncio",
+    )
+
+    # Mock the actual call within the gRPC stub, and fake the request.
+    with mock.patch.object(type(client.transport.list_instances), "__call__") as call:
+        # Designate an appropriate return value for the call.
+        call.return_value = grpc_helpers_async.FakeUnaryUnaryCall(
+            spanner_instance_admin.ListInstancesResponse(
+                next_page_token="next_page_token_value",
+                unreachable=["unreachable_value"],
+            )
+        )
+        response = await client.list_instances()
         call.assert_called()
         _, args, _ = call.mock_calls[0]
         assert args[0] == spanner_instance_admin.ListInstancesRequest()
@@ -3143,7 +3526,8 @@ async def test_list_instances_async(
         # Establish that the underlying gRPC stub method was called.
         assert len(call.mock_calls)
         _, args, _ = call.mock_calls[0]
-        assert args[0] == spanner_instance_admin.ListInstancesRequest()
+        request = spanner_instance_admin.ListInstancesRequest()
+        assert args[0] == request
 
     # Establish that the response is the type that we expect.
     assert isinstance(response, pagers.ListInstancesAsyncPager)
@@ -3520,7 +3904,8 @@ def test_list_instance_partitions(request_type, transport: str = "grpc"):
         # Establish that the underlying gRPC stub method was called.
         assert len(call.mock_calls) == 1
         _, args, _ = call.mock_calls[0]
-        assert args[0] == spanner_instance_admin.ListInstancePartitionsRequest()
+        request = spanner_instance_admin.ListInstancePartitionsRequest()
+        assert args[0] == request
 
     # Establish that the response is the type that we expect.
     assert isinstance(response, pagers.ListInstancePartitionsPager)
@@ -3541,6 +3926,61 @@ def test_list_instance_partitions_empty_call():
         type(client.transport.list_instance_partitions), "__call__"
     ) as call:
         client.list_instance_partitions()
+        call.assert_called()
+        _, args, _ = call.mock_calls[0]
+        assert args[0] == spanner_instance_admin.ListInstancePartitionsRequest()
+
+
+def test_list_instance_partitions_non_empty_request_with_auto_populated_field():
+    # This test is a coverage failsafe to make sure that UUID4 fields are
+    # automatically populated, according to AIP-4235, with non-empty requests.
+    client = InstanceAdminClient(
+        credentials=ga_credentials.AnonymousCredentials(),
+        transport="grpc",
+    )
+
+    # Populate all string fields in the request which are not UUID4
+    # since we want to check that UUID4 are populated automatically
+    # if they meet the requirements of AIP 4235.
+    request = spanner_instance_admin.ListInstancePartitionsRequest(
+        parent="parent_value",
+        page_token="page_token_value",
+    )
+
+    # Mock the actual call within the gRPC stub, and fake the request.
+    with mock.patch.object(
+        type(client.transport.list_instance_partitions), "__call__"
+    ) as call:
+        client.list_instance_partitions(request=request)
+        call.assert_called()
+        _, args, _ = call.mock_calls[0]
+        assert args[0] == spanner_instance_admin.ListInstancePartitionsRequest(
+            parent="parent_value",
+            page_token="page_token_value",
+        )
+
+
+@pytest.mark.asyncio
+async def test_list_instance_partitions_empty_call_async():
+    # This test is a coverage failsafe to make sure that totally empty calls,
+    # i.e. request == None and no flattened fields passed, work.
+    client = InstanceAdminAsyncClient(
+        credentials=ga_credentials.AnonymousCredentials(),
+        transport="grpc_asyncio",
+    )
+
+    # Mock the actual call within the gRPC stub, and fake the request.
+    with mock.patch.object(
+        type(client.transport.list_instance_partitions), "__call__"
+    ) as call:
+        # Designate an appropriate return value for the call.
+        call.return_value = grpc_helpers_async.FakeUnaryUnaryCall(
+            spanner_instance_admin.ListInstancePartitionsResponse(
+                next_page_token="next_page_token_value",
+                unreachable=["unreachable_value"],
+            )
+        )
+        response = await client.list_instance_partitions()
         call.assert_called()
         _, args, _ = call.mock_calls[0]
         assert args[0] == spanner_instance_admin.ListInstancePartitionsRequest()
@@ -3576,7 +4016,8 @@ async def test_list_instance_partitions_async(
         # Establish that the underlying gRPC stub method was called.
         assert len(call.mock_calls)
         _, args, _ = call.mock_calls[0]
-        assert args[0] == spanner_instance_admin.ListInstancePartitionsRequest()
+        request = spanner_instance_admin.ListInstancePartitionsRequest()
+        assert args[0] == request
 
     # Establish that the response is the type that we expect.
     assert isinstance(response, pagers.ListInstancePartitionsAsyncPager)
@@ -3976,7 +4417,8 @@ def test_get_instance(request_type, transport: str = "grpc"):
         # Establish that the underlying gRPC stub method was called.
         assert len(call.mock_calls) == 1
         _, args, _ = call.mock_calls[0]
-        assert args[0] == spanner_instance_admin.GetInstanceRequest()
+        request = spanner_instance_admin.GetInstanceRequest()
+        assert args[0] == request
 
     # Establish that the response is the type that we expect.
     assert isinstance(response, spanner_instance_admin.Instance)
@@ -4000,6 +4442,60 @@ def test_get_instance_empty_call():
     # Mock the actual call within the gRPC stub, and fake the request.
     with mock.patch.object(type(client.transport.get_instance), "__call__") as call:
         client.get_instance()
+        call.assert_called()
+        _, args, _ = call.mock_calls[0]
+        assert args[0] == spanner_instance_admin.GetInstanceRequest()
+
+
+def test_get_instance_non_empty_request_with_auto_populated_field():
+    # This test is a coverage failsafe to make sure that UUID4 fields are
+    # automatically populated, according to AIP-4235, with non-empty requests.
+    client = InstanceAdminClient(
+        credentials=ga_credentials.AnonymousCredentials(),
+        transport="grpc",
+    )
+
+    # Populate all string fields in the request which are not UUID4
+    # since we want to check that UUID4 are populated automatically
+    # if they meet the requirements of AIP 4235.
+    request = spanner_instance_admin.GetInstanceRequest(
+        name="name_value",
+    )
+
+    # Mock the actual call within the gRPC stub, and fake the request.
+    with mock.patch.object(type(client.transport.get_instance), "__call__") as call:
+        client.get_instance(request=request)
+        call.assert_called()
+        _, args, _ = call.mock_calls[0]
+        assert args[0] == spanner_instance_admin.GetInstanceRequest(
+            name="name_value",
+        )
+
+
+@pytest.mark.asyncio
+async def test_get_instance_empty_call_async():
+    # This test is a coverage failsafe to make sure that totally empty calls,
+    # i.e. request == None and no flattened fields passed, work.
+    client = InstanceAdminAsyncClient(
+        credentials=ga_credentials.AnonymousCredentials(),
+        transport="grpc_asyncio",
+    )
+
+    # Mock the actual call within the gRPC stub, and fake the request.
+    with mock.patch.object(type(client.transport.get_instance), "__call__") as call:
+        # Designate an appropriate return value for the call.
+        call.return_value = grpc_helpers_async.FakeUnaryUnaryCall(
+            spanner_instance_admin.Instance(
+                name="name_value",
+                config="config_value",
+                display_name="display_name_value",
+                node_count=1070,
+                processing_units=1743,
+                state=spanner_instance_admin.Instance.State.CREATING,
+                endpoint_uris=["endpoint_uris_value"],
+            )
+        )
+        response = await client.get_instance()
         call.assert_called()
         _, args, _ = call.mock_calls[0]
         assert args[0] == spanner_instance_admin.GetInstanceRequest()
@@ -4038,7 +4534,8 @@ async def test_get_instance_async(
         # Establish that the underlying gRPC stub method was called.
         assert len(call.mock_calls)
         _, args, _ = call.mock_calls[0]
-        assert args[0] == spanner_instance_admin.GetInstanceRequest()
+        request = spanner_instance_admin.GetInstanceRequest()
+        assert args[0] == request
 
     # Establish that the response is the type that we expect.
     assert isinstance(response, spanner_instance_admin.Instance)
@@ -4225,7 +4722,8 @@ def test_create_instance(request_type, transport: str = "grpc"):
         # Establish that the underlying gRPC stub method was called.
         assert len(call.mock_calls) == 1
         _, args, _ = call.mock_calls[0]
-        assert args[0] == spanner_instance_admin.CreateInstanceRequest()
+        request = spanner_instance_admin.CreateInstanceRequest()
+        assert args[0] == request
 
     # Establish that the response is the type that we expect.
     assert isinstance(response, future.Future)
@@ -4242,6 +4740,54 @@ def test_create_instance_empty_call():
     # Mock the actual call within the gRPC stub, and fake the request.
     with mock.patch.object(type(client.transport.create_instance), "__call__") as call:
         client.create_instance()
+        call.assert_called()
+        _, args, _ = call.mock_calls[0]
+        assert args[0] == spanner_instance_admin.CreateInstanceRequest()
+
+
+def test_create_instance_non_empty_request_with_auto_populated_field():
+    # This test is a coverage failsafe to make sure that UUID4 fields are
+    # automatically populated, according to AIP-4235, with non-empty requests.
+    client = InstanceAdminClient(
+        credentials=ga_credentials.AnonymousCredentials(),
+        transport="grpc",
+    )
+
+    # Populate all string fields in the request which are not UUID4
+    # since we want to check that UUID4 are populated automatically
+    # if they meet the requirements of AIP 4235.
+    request = spanner_instance_admin.CreateInstanceRequest(
+        parent="parent_value",
+        instance_id="instance_id_value",
+    )
+
+    # Mock the actual call within the gRPC stub, and fake the request.
+    with mock.patch.object(type(client.transport.create_instance), "__call__") as call:
+        client.create_instance(request=request)
+        call.assert_called()
+        _, args, _ = call.mock_calls[0]
+        assert args[0] == spanner_instance_admin.CreateInstanceRequest(
+            parent="parent_value",
+            instance_id="instance_id_value",
+        )
+
+
+@pytest.mark.asyncio
+async def test_create_instance_empty_call_async():
+    # This test is a coverage failsafe to make sure that totally empty calls,
+    # i.e. request == None and no flattened fields passed, work.
+    client = InstanceAdminAsyncClient(
+        credentials=ga_credentials.AnonymousCredentials(),
+        transport="grpc_asyncio",
+    )
+
+    # Mock the actual call within the gRPC stub, and fake the request.
+    with mock.patch.object(type(client.transport.create_instance), "__call__") as call:
+        # Designate an appropriate return value for the call.
+        call.return_value = grpc_helpers_async.FakeUnaryUnaryCall(
+            operations_pb2.Operation(name="operations/spam")
+        )
+        response = await client.create_instance()
         call.assert_called()
         _, args, _ = call.mock_calls[0]
         assert args[0] == spanner_instance_admin.CreateInstanceRequest()
@@ -4272,7 +4818,8 @@ async def test_create_instance_async(
         # Establish that the underlying gRPC stub method was called.
         assert len(call.mock_calls)
         _, args, _ = call.mock_calls[0]
-        assert args[0] == spanner_instance_admin.CreateInstanceRequest()
+        request = spanner_instance_admin.CreateInstanceRequest()
+        assert args[0] == request
 
     # Establish that the response is the type that we expect.
     assert isinstance(response, future.Future)
@@ -4472,7 +5019,8 @@ def test_update_instance(request_type, transport: str = "grpc"):
         # Establish that the underlying gRPC stub method was called.
         assert len(call.mock_calls) == 1
         _, args, _ = call.mock_calls[0]
-        assert args[0] == spanner_instance_admin.UpdateInstanceRequest()
+        request = spanner_instance_admin.UpdateInstanceRequest()
+        assert args[0] == request
 
     # Establish that the response is the type that we expect.
     assert isinstance(response, future.Future)
@@ -4489,6 +5037,48 @@ def test_update_instance_empty_call():
     # Mock the actual call within the gRPC stub, and fake the request.
     with mock.patch.object(type(client.transport.update_instance), "__call__") as call:
         client.update_instance()
+        call.assert_called()
+        _, args, _ = call.mock_calls[0]
+        assert args[0] == spanner_instance_admin.UpdateInstanceRequest()
+
+
+def test_update_instance_non_empty_request_with_auto_populated_field():
+    # This test is a coverage failsafe to make sure that UUID4 fields are
+    # automatically populated, according to AIP-4235, with non-empty requests.
+    client = InstanceAdminClient(
+        credentials=ga_credentials.AnonymousCredentials(),
+        transport="grpc",
+    )
+
+    # Populate all string fields in the request which are not UUID4
+    # since we want to check that UUID4 are populated automatically
+    # if they meet the requirements of AIP 4235.
+    request = spanner_instance_admin.UpdateInstanceRequest()
+
+    # Mock the actual call within the gRPC stub, and fake the request.
+    with mock.patch.object(type(client.transport.update_instance), "__call__") as call:
+        client.update_instance(request=request)
+        call.assert_called()
+        _, args, _ = call.mock_calls[0]
+        assert args[0] == spanner_instance_admin.UpdateInstanceRequest()
+
+
+@pytest.mark.asyncio
+async def test_update_instance_empty_call_async():
+    # This test is a coverage failsafe to make sure that totally empty calls,
+    # i.e. request == None and no flattened fields passed, work.
+    client = InstanceAdminAsyncClient(
+        credentials=ga_credentials.AnonymousCredentials(),
+        transport="grpc_asyncio",
+    )
+
+    # Mock the actual call within the gRPC stub, and fake the request.
+    with mock.patch.object(type(client.transport.update_instance), "__call__") as call:
+        # Designate an appropriate return value for the call.
+        call.return_value = grpc_helpers_async.FakeUnaryUnaryCall(
+            operations_pb2.Operation(name="operations/spam")
+        )
+        response = await client.update_instance()
         call.assert_called()
         _, args, _ = call.mock_calls[0]
         assert args[0] == spanner_instance_admin.UpdateInstanceRequest()
@@ -4519,7 +5109,8 @@ async def test_update_instance_async(
         # Establish that the underlying gRPC stub method was called.
         assert len(call.mock_calls)
         _, args, _ = call.mock_calls[0]
-        assert args[0] == spanner_instance_admin.UpdateInstanceRequest()
+        request = spanner_instance_admin.UpdateInstanceRequest()
+        assert args[0] == request
 
     # Establish that the response is the type that we expect.
     assert isinstance(response, future.Future)
@@ -4709,7 +5300,8 @@ def test_delete_instance(request_type, transport: str = "grpc"):
         # Establish that the underlying gRPC stub method was called.
         assert len(call.mock_calls) == 1
         _, args, _ = call.mock_calls[0]
-        assert args[0] == spanner_instance_admin.DeleteInstanceRequest()
+        request = spanner_instance_admin.DeleteInstanceRequest()
+        assert args[0] == request
 
     # Establish that the response is the type that we expect.
     assert response is None
@@ -4726,6 +5318,50 @@ def test_delete_instance_empty_call():
     # Mock the actual call within the gRPC stub, and fake the request.
     with mock.patch.object(type(client.transport.delete_instance), "__call__") as call:
         client.delete_instance()
+        call.assert_called()
+        _, args, _ = call.mock_calls[0]
+        assert args[0] == spanner_instance_admin.DeleteInstanceRequest()
+
+
+def test_delete_instance_non_empty_request_with_auto_populated_field():
+    # This test is a coverage failsafe to make sure that UUID4 fields are
+    # automatically populated, according to AIP-4235, with non-empty requests.
+    client = InstanceAdminClient(
+        credentials=ga_credentials.AnonymousCredentials(),
+        transport="grpc",
+    )
+
+    # Populate all string fields in the request which are not UUID4
+    # since we want to check that UUID4 are populated automatically
+    # if they meet the requirements of AIP 4235.
+    request = spanner_instance_admin.DeleteInstanceRequest(
+        name="name_value",
+    )
+
+    # Mock the actual call within the gRPC stub, and fake the request.
+    with mock.patch.object(type(client.transport.delete_instance), "__call__") as call:
+        client.delete_instance(request=request)
+        call.assert_called()
+        _, args, _ = call.mock_calls[0]
+        assert args[0] == spanner_instance_admin.DeleteInstanceRequest(
+            name="name_value",
+        )
+
+
+@pytest.mark.asyncio
+async def test_delete_instance_empty_call_async():
+    # This test is a coverage failsafe to make sure that totally empty calls,
+    # i.e. request == None and no flattened fields passed, work.
+    client = InstanceAdminAsyncClient(
+        credentials=ga_credentials.AnonymousCredentials(),
+        transport="grpc_asyncio",
+    )
+
+    # Mock the actual call within the gRPC stub, and fake the request.
+    with mock.patch.object(type(client.transport.delete_instance), "__call__") as call:
+        # Designate an appropriate return value for the call.
+        call.return_value = grpc_helpers_async.FakeUnaryUnaryCall(None)
+        response = await client.delete_instance()
         call.assert_called()
         _, args, _ = call.mock_calls[0]
         assert args[0] == spanner_instance_admin.DeleteInstanceRequest()
@@ -4754,7 +5390,8 @@ async def test_delete_instance_async(
         # Establish that the underlying gRPC stub method was called.
         assert len(call.mock_calls)
         _, args, _ = call.mock_calls[0]
-        assert args[0] == spanner_instance_admin.DeleteInstanceRequest()
+        request = spanner_instance_admin.DeleteInstanceRequest()
+        assert args[0] == request
 
     # Establish that the response is the type that we expect.
     assert response is None
@@ -4933,7 +5570,8 @@ def test_set_iam_policy(request_type, transport: str = "grpc"):
         # Establish that the underlying gRPC stub method was called.
         assert len(call.mock_calls) == 1
         _, args, _ = call.mock_calls[0]
-        assert args[0] == iam_policy_pb2.SetIamPolicyRequest()
+        request = iam_policy_pb2.SetIamPolicyRequest()
+        assert args[0] == request
 
     # Establish that the response is the type that we expect.
     assert isinstance(response, policy_pb2.Policy)
@@ -4952,6 +5590,55 @@ def test_set_iam_policy_empty_call():
     # Mock the actual call within the gRPC stub, and fake the request.
     with mock.patch.object(type(client.transport.set_iam_policy), "__call__") as call:
         client.set_iam_policy()
+        call.assert_called()
+        _, args, _ = call.mock_calls[0]
+        assert args[0] == iam_policy_pb2.SetIamPolicyRequest()
+
+
+def test_set_iam_policy_non_empty_request_with_auto_populated_field():
+    # This test is a coverage failsafe to make sure that UUID4 fields are
+    # automatically populated, according to AIP-4235, with non-empty requests.
+    client = InstanceAdminClient(
+        credentials=ga_credentials.AnonymousCredentials(),
+        transport="grpc",
+    )
+
+    # Populate all string fields in the request which are not UUID4
+    # since we want to check that UUID4 are populated automatically
+    # if they meet the requirements of AIP 4235.
+    request = iam_policy_pb2.SetIamPolicyRequest(
+        resource="resource_value",
+    )
+
+    # Mock the actual call within the gRPC stub, and fake the request.
+    with mock.patch.object(type(client.transport.set_iam_policy), "__call__") as call:
+        client.set_iam_policy(request=request)
+        call.assert_called()
+        _, args, _ = call.mock_calls[0]
+        assert args[0] == iam_policy_pb2.SetIamPolicyRequest(
+            resource="resource_value",
+        )
+
+
+@pytest.mark.asyncio
+async def test_set_iam_policy_empty_call_async():
+    # This test is a coverage failsafe to make sure that totally empty calls,
+    # i.e. request == None and no flattened fields passed, work.
+    client = InstanceAdminAsyncClient(
+        credentials=ga_credentials.AnonymousCredentials(),
+        transport="grpc_asyncio",
+    )
+
+    # Mock the actual call within the gRPC stub, and fake the request.
+    with mock.patch.object(type(client.transport.set_iam_policy), "__call__") as call:
+        # Designate an appropriate return value for the call.
+        call.return_value = grpc_helpers_async.FakeUnaryUnaryCall(
+            policy_pb2.Policy(
+                version=774,
+                etag=b"etag_blob",
+            )
+        )
+        response = await client.set_iam_policy()
         call.assert_called()
         _, args, _ = call.mock_calls[0]
         assert args[0] == iam_policy_pb2.SetIamPolicyRequest()
@@ -4984,7 +5671,8 @@ async def test_set_iam_policy_async(
         # Establish that the underlying gRPC stub method was called.
         assert len(call.mock_calls)
         _, args, _ = call.mock_calls[0]
-        assert args[0] == iam_policy_pb2.SetIamPolicyRequest()
+        request = iam_policy_pb2.SetIamPolicyRequest()
+        assert args[0] == request
 
     # Establish that the response is the type that we expect.
     assert isinstance(response, policy_pb2.Policy)
@@ -5183,7 +5871,8 @@ def test_get_iam_policy(request_type, transport: str = "grpc"):
         # Establish that the underlying gRPC stub method was called.
         assert len(call.mock_calls) == 1
         _, args, _ = call.mock_calls[0]
-        assert args[0] == iam_policy_pb2.GetIamPolicyRequest()
+        request = iam_policy_pb2.GetIamPolicyRequest()
+        assert args[0] == request
 
     # Establish that the response is the type that we expect.
     assert isinstance(response, policy_pb2.Policy)
@@ -5202,6 +5891,55 @@ def test_get_iam_policy_empty_call():
     # Mock the actual call within the gRPC stub, and fake the request.
     with mock.patch.object(type(client.transport.get_iam_policy), "__call__") as call:
         client.get_iam_policy()
+        call.assert_called()
+        _, args, _ = call.mock_calls[0]
+        assert args[0] == iam_policy_pb2.GetIamPolicyRequest()
+
+
+def test_get_iam_policy_non_empty_request_with_auto_populated_field():
+    # This test is a coverage failsafe to make sure that UUID4 fields are
+    # automatically populated, according to AIP-4235, with non-empty requests.
+    client = InstanceAdminClient(
+        credentials=ga_credentials.AnonymousCredentials(),
+        transport="grpc",
+    )
+
+    # Populate all string fields in the request which are not UUID4
+    # since we want to check that UUID4 are populated automatically
+    # if they meet the requirements of AIP 4235.
+    request = iam_policy_pb2.GetIamPolicyRequest(
+        resource="resource_value",
+    )
+
+    # Mock the actual call within the gRPC stub, and fake the request.
+    with mock.patch.object(type(client.transport.get_iam_policy), "__call__") as call:
+        client.get_iam_policy(request=request)
+        call.assert_called()
+        _, args, _ = call.mock_calls[0]
+        assert args[0] == iam_policy_pb2.GetIamPolicyRequest(
+            resource="resource_value",
+        )
+
+
+@pytest.mark.asyncio
+async def test_get_iam_policy_empty_call_async():
+    # This test is a coverage failsafe to make sure that totally empty calls,
+    # i.e. request == None and no flattened fields passed, work.
+    client = InstanceAdminAsyncClient(
+        credentials=ga_credentials.AnonymousCredentials(),
+        transport="grpc_asyncio",
+    )
+
+    # Mock the actual call within the gRPC stub, and fake the request.
+    with mock.patch.object(type(client.transport.get_iam_policy), "__call__") as call:
+        # Designate an appropriate return value for the call.
+        call.return_value = grpc_helpers_async.FakeUnaryUnaryCall(
+            policy_pb2.Policy(
+                version=774,
+                etag=b"etag_blob",
+            )
+        )
+        response = await client.get_iam_policy()
         call.assert_called()
         _, args, _ = call.mock_calls[0]
         assert args[0] == iam_policy_pb2.GetIamPolicyRequest()
@@ -5234,7 +5972,8 @@ async def test_get_iam_policy_async(
         # Establish that the underlying gRPC stub method was called.
         assert len(call.mock_calls)
         _, args, _ = call.mock_calls[0]
-        assert args[0] == iam_policy_pb2.GetIamPolicyRequest()
+        request = iam_policy_pb2.GetIamPolicyRequest()
+        assert args[0] == request
 
     # Establish that the response is the type that we expect.
     assert isinstance(response, policy_pb2.Policy)
@@ -5433,7 +6172,8 @@ def test_test_iam_permissions(request_type, transport: str = "grpc"):
         # Establish that the underlying gRPC stub method was called.
         assert len(call.mock_calls) == 1
         _, args, _ = call.mock_calls[0]
-        assert args[0] == iam_policy_pb2.TestIamPermissionsRequest()
+        request = iam_policy_pb2.TestIamPermissionsRequest()
+        assert args[0] == request
 
     # Establish that the response is the type that we expect.
     assert isinstance(response, iam_policy_pb2.TestIamPermissionsResponse)
@@ -5453,6 +6193,58 @@ def test_test_iam_permissions_empty_call():
         type(client.transport.test_iam_permissions), "__call__"
     ) as call:
         client.test_iam_permissions()
+        call.assert_called()
+        _, args, _ = call.mock_calls[0]
+        assert args[0] == iam_policy_pb2.TestIamPermissionsRequest()
+
+
+def test_test_iam_permissions_non_empty_request_with_auto_populated_field():
+    # This test is a coverage failsafe to make sure that UUID4 fields are
+    # automatically populated, according to AIP-4235, with non-empty requests.
+    client = InstanceAdminClient(
+        credentials=ga_credentials.AnonymousCredentials(),
+        transport="grpc",
+    )
+
+    # Populate all string fields in the request which are not UUID4
+    # since we want to check that UUID4 are populated automatically
+    # if they meet the requirements of AIP 4235.
+    request = iam_policy_pb2.TestIamPermissionsRequest(
+        resource="resource_value",
+    )
+
+    # Mock the actual call within the gRPC stub, and fake the request.
+    with mock.patch.object(
+        type(client.transport.test_iam_permissions), "__call__"
+    ) as call:
+        client.test_iam_permissions(request=request)
+        call.assert_called()
+        _, args, _ = call.mock_calls[0]
+        assert args[0] == iam_policy_pb2.TestIamPermissionsRequest(
+            resource="resource_value",
+        )
+
+
+@pytest.mark.asyncio
+async def test_test_iam_permissions_empty_call_async():
+    # This test is a coverage failsafe to make sure that totally empty calls,
+    # i.e. request == None and no flattened fields passed, work.
+    client = InstanceAdminAsyncClient(
+        credentials=ga_credentials.AnonymousCredentials(),
+        transport="grpc_asyncio",
+    )
+
+    # Mock the actual call within the gRPC stub, and fake the request.
+    with mock.patch.object(
+        type(client.transport.test_iam_permissions), "__call__"
+    ) as call:
+        # Designate an appropriate return value for the call.
+        call.return_value = grpc_helpers_async.FakeUnaryUnaryCall(
+            iam_policy_pb2.TestIamPermissionsResponse(
+                permissions=["permissions_value"],
+            )
+        )
+        response = await client.test_iam_permissions()
         call.assert_called()
         _, args, _ = call.mock_calls[0]
         assert args[0] == iam_policy_pb2.TestIamPermissionsRequest()
@@ -5487,7 +6279,8 @@ async def test_test_iam_permissions_async(
         # Establish that the underlying gRPC stub method was called.
         assert len(call.mock_calls)
         _, args, _ = call.mock_calls[0]
-        assert args[0] == iam_policy_pb2.TestIamPermissionsRequest()
+        request = iam_policy_pb2.TestIamPermissionsRequest()
+        assert args[0] == request
 
     # Establish that the response is the type that we expect.
     assert isinstance(response, iam_policy_pb2.TestIamPermissionsResponse)
@@ -5716,7 +6509,8 @@ def test_get_instance_partition(request_type, transport: str = "grpc"):
         # Establish that the underlying gRPC stub method was called.
         assert len(call.mock_calls) == 1
         _, args, _ = call.mock_calls[0]
-        assert args[0] == spanner_instance_admin.GetInstancePartitionRequest()
+        request = spanner_instance_admin.GetInstancePartitionRequest()
+        assert args[0] == request
 
     # Establish that the response is the type that we expect.
     assert isinstance(response, spanner_instance_admin.InstancePartition)
@@ -5742,6 +6536,64 @@ def test_get_instance_partition_empty_call():
         type(client.transport.get_instance_partition), "__call__"
     ) as call:
         client.get_instance_partition()
+        call.assert_called()
+        _, args, _ = call.mock_calls[0]
+        assert args[0] == spanner_instance_admin.GetInstancePartitionRequest()
+
+
+def test_get_instance_partition_non_empty_request_with_auto_populated_field():
+    # This test is a coverage failsafe to make sure that UUID4 fields are
+    # automatically populated, according to AIP-4235, with non-empty requests.
+    client = InstanceAdminClient(
+        credentials=ga_credentials.AnonymousCredentials(),
+        transport="grpc",
+    )
+
+    # Populate all string fields in the request which are not UUID4
+    # since we want to check that UUID4 are populated automatically
+    # if they meet the requirements of AIP 4235.
+    request = spanner_instance_admin.GetInstancePartitionRequest(
+        name="name_value",
+    )
+
+    # Mock the actual call within the gRPC stub, and fake the request.
+    with mock.patch.object(
+        type(client.transport.get_instance_partition), "__call__"
+    ) as call:
+        client.get_instance_partition(request=request)
+        call.assert_called()
+        _, args, _ = call.mock_calls[0]
+        assert args[0] == spanner_instance_admin.GetInstancePartitionRequest(
+            name="name_value",
+        )
+
+
+@pytest.mark.asyncio
+async def test_get_instance_partition_empty_call_async():
+    # This test is a coverage failsafe to make sure that totally empty calls,
+    # i.e. request == None and no flattened fields passed, work.
+    client = InstanceAdminAsyncClient(
+        credentials=ga_credentials.AnonymousCredentials(),
+        transport="grpc_asyncio",
+    )
+
+    # Mock the actual call within the gRPC stub, and fake the request.
+    with mock.patch.object(
+        type(client.transport.get_instance_partition), "__call__"
+    ) as call:
+        # Designate an appropriate return value for the call.
+        call.return_value = grpc_helpers_async.FakeUnaryUnaryCall(
+            spanner_instance_admin.InstancePartition(
+                name="name_value",
+                config="config_value",
+                display_name="display_name_value",
+                state=spanner_instance_admin.InstancePartition.State.CREATING,
+                referencing_databases=["referencing_databases_value"],
+                referencing_backups=["referencing_backups_value"],
+                etag="etag_value",
+            )
+        )
+        response = await client.get_instance_partition()
         call.assert_called()
         _, args, _ = call.mock_calls[0]
         assert args[0] == spanner_instance_admin.GetInstancePartitionRequest()
@@ -5782,7 +6634,8 @@ async def test_get_instance_partition_async(
         # Establish that the underlying gRPC stub method was called.
         assert len(call.mock_calls)
         _, args, _ = call.mock_calls[0]
-        assert args[0] == spanner_instance_admin.GetInstancePartitionRequest()
+        request = spanner_instance_admin.GetInstancePartitionRequest()
+        assert args[0] == request
 
     # Establish that the response is the type that we expect.
     assert isinstance(response, spanner_instance_admin.InstancePartition)
@@ -5979,7 +6832,8 @@ def test_create_instance_partition(request_type, transport: str = "grpc"):
         # Establish that the underlying gRPC stub method was called.
         assert len(call.mock_calls) == 1
         _, args, _ = call.mock_calls[0]
-        assert args[0] == spanner_instance_admin.CreateInstancePartitionRequest()
+        request = spanner_instance_admin.CreateInstancePartitionRequest()
+        assert args[0] == request
 
     # Establish that the response is the type that we expect.
     assert isinstance(response, future.Future)
@@ -5998,6 +6852,58 @@ def test_create_instance_partition_empty_call():
         type(client.transport.create_instance_partition), "__call__"
     ) as call:
         client.create_instance_partition()
+        call.assert_called()
+        _, args, _ = call.mock_calls[0]
+        assert args[0] == spanner_instance_admin.CreateInstancePartitionRequest()
+
+
+def test_create_instance_partition_non_empty_request_with_auto_populated_field():
+    # This test is a coverage failsafe to make sure that UUID4 fields are
+    # automatically populated, according to AIP-4235, with non-empty requests.
+    client = InstanceAdminClient(
+        credentials=ga_credentials.AnonymousCredentials(),
+        transport="grpc",
+    )
+
+    # Populate all string fields in the request which are not UUID4
+    # since we want to check that UUID4 are populated automatically
+    # if they meet the requirements of AIP 4235.
+    request = spanner_instance_admin.CreateInstancePartitionRequest(
+        parent="parent_value",
+        instance_partition_id="instance_partition_id_value",
+    )
+
+    # Mock the actual call within the gRPC stub, and fake the request.
+    with mock.patch.object(
+        type(client.transport.create_instance_partition), "__call__"
+    ) as call:
+        client.create_instance_partition(request=request)
+        call.assert_called()
+        _, args, _ = call.mock_calls[0]
+        assert args[0] == spanner_instance_admin.CreateInstancePartitionRequest(
+            parent="parent_value",
+            instance_partition_id="instance_partition_id_value",
+        )
+
+
+@pytest.mark.asyncio
+async def test_create_instance_partition_empty_call_async():
+    # This test is a coverage failsafe to make sure that totally empty calls,
+    # i.e. request == None and no flattened fields passed, work.
+    client = InstanceAdminAsyncClient(
+        credentials=ga_credentials.AnonymousCredentials(),
+        transport="grpc_asyncio",
+    )
+
+    # Mock the actual call within the gRPC stub, and fake the request.
+    with mock.patch.object(
+        type(client.transport.create_instance_partition), "__call__"
+    ) as call:
+        # Designate an appropriate return value for the call.
+        call.return_value = grpc_helpers_async.FakeUnaryUnaryCall(
+            operations_pb2.Operation(name="operations/spam")
+        )
+        response = await client.create_instance_partition()
         call.assert_called()
         _, args, _ = call.mock_calls[0]
         assert args[0] == spanner_instance_admin.CreateInstancePartitionRequest()
@@ -6030,7 +6936,8 @@ async def test_create_instance_partition_async(
         # Establish that the underlying gRPC stub method was called.
         assert len(call.mock_calls)
         _, args, _ = call.mock_calls[0]
-        assert args[0] == spanner_instance_admin.CreateInstancePartitionRequest()
+        request = spanner_instance_admin.CreateInstancePartitionRequest()
+        assert args[0] == request
 
     # Establish that the response is the type that we expect.
     assert isinstance(response, future.Future)
@@ -6248,7 +7155,8 @@ def test_delete_instance_partition(request_type, transport: str = "grpc"):
         # Establish that the underlying gRPC stub method was called.
         assert len(call.mock_calls) == 1
         _, args, _ = call.mock_calls[0]
-        assert args[0] == spanner_instance_admin.DeleteInstancePartitionRequest()
+        request = spanner_instance_admin.DeleteInstancePartitionRequest()
+        assert args[0] == request
 
     # Establish that the response is the type that we expect.
     assert response is None
@@ -6267,6 +7175,56 @@ def test_delete_instance_partition_empty_call():
         type(client.transport.delete_instance_partition), "__call__"
     ) as call:
         client.delete_instance_partition()
+        call.assert_called()
+        _, args, _ = call.mock_calls[0]
+        assert args[0] == spanner_instance_admin.DeleteInstancePartitionRequest()
+
+
+def test_delete_instance_partition_non_empty_request_with_auto_populated_field():
+    # This test is a coverage failsafe to make sure that UUID4 fields are
+    # automatically populated, according to AIP-4235, with non-empty requests.
+    client = InstanceAdminClient(
+        credentials=ga_credentials.AnonymousCredentials(),
+        transport="grpc",
+    )
+
+    # Populate all string fields in the request which are not UUID4
+    # since we want to check that UUID4 are populated automatically
+    # if they meet the requirements of AIP 4235.
+    request = spanner_instance_admin.DeleteInstancePartitionRequest(
+        name="name_value",
+        etag="etag_value",
+    )
+
+    # Mock the actual call within the gRPC stub, and fake the request.
+    with mock.patch.object(
+        type(client.transport.delete_instance_partition), "__call__"
+    ) as call:
+        client.delete_instance_partition(request=request)
+        call.assert_called()
+        _, args, _ = call.mock_calls[0]
+        assert args[0] == spanner_instance_admin.DeleteInstancePartitionRequest(
+            name="name_value",
+            etag="etag_value",
+        )
+
+
+@pytest.mark.asyncio
+async def test_delete_instance_partition_empty_call_async():
+    # This test is a coverage failsafe to make sure that totally empty calls,
+    # i.e. request == None and no flattened fields passed, work.
+    client = InstanceAdminAsyncClient(
+        credentials=ga_credentials.AnonymousCredentials(),
+        transport="grpc_asyncio",
+    )
+
+    # Mock the actual call within the gRPC stub, and fake the request.
+    with mock.patch.object(
+        type(client.transport.delete_instance_partition), "__call__"
+    ) as call:
+        # Designate an appropriate return value for the call.
+        call.return_value = grpc_helpers_async.FakeUnaryUnaryCall(None)
+        response = await client.delete_instance_partition()
         call.assert_called()
         _, args, _ = call.mock_calls[0]
         assert args[0] == spanner_instance_admin.DeleteInstancePartitionRequest()
@@ -6297,7 +7255,8 @@ async def test_delete_instance_partition_async(
         # Establish that the underlying gRPC stub method was called.
         assert len(call.mock_calls)
         _, args, _ = call.mock_calls[0]
-        assert args[0] == spanner_instance_admin.DeleteInstancePartitionRequest()
+        request = spanner_instance_admin.DeleteInstancePartitionRequest()
+        assert args[0] == request
 
     # Establish that the response is the type that we expect.
     assert response is None
@@ -6483,7 +7442,8 @@ def test_update_instance_partition(request_type, transport: str = "grpc"):
         # Establish that the underlying gRPC stub method was called.
         assert len(call.mock_calls) == 1
         _, args, _ = call.mock_calls[0]
-        assert args[0] == spanner_instance_admin.UpdateInstancePartitionRequest()
+        request = spanner_instance_admin.UpdateInstancePartitionRequest()
+        assert args[0] == request
 
     # Establish that the response is the type that we expect.
     assert isinstance(response, future.Future)
@@ -6502,6 +7462,52 @@ def test_update_instance_partition_empty_call():
         type(client.transport.update_instance_partition), "__call__"
     ) as call:
         client.update_instance_partition()
+        call.assert_called()
+        _, args, _ = call.mock_calls[0]
+        assert args[0] == spanner_instance_admin.UpdateInstancePartitionRequest()
+
+
+def test_update_instance_partition_non_empty_request_with_auto_populated_field():
+    # This test is a coverage failsafe to make sure that UUID4 fields are
+    # automatically populated, according to AIP-4235, with non-empty requests.
+    client = InstanceAdminClient(
+        credentials=ga_credentials.AnonymousCredentials(),
+        transport="grpc",
+    )
+
+    # Populate all string fields in the request which are not UUID4
+    # since we want to check that UUID4 are populated automatically
+    # if they meet the requirements of AIP 4235.
+    request = spanner_instance_admin.UpdateInstancePartitionRequest()
+
+    # Mock the actual call within the gRPC stub, and fake the request.
+    with mock.patch.object(
+        type(client.transport.update_instance_partition), "__call__"
+    ) as call:
+        client.update_instance_partition(request=request)
+        call.assert_called()
+        _, args, _ = call.mock_calls[0]
+        assert args[0] == spanner_instance_admin.UpdateInstancePartitionRequest()
+
+
+@pytest.mark.asyncio
+async def test_update_instance_partition_empty_call_async():
+    # This test is a coverage failsafe to make sure that totally empty calls,
+    # i.e. request == None and no flattened fields passed, work.
+    client = InstanceAdminAsyncClient(
+        credentials=ga_credentials.AnonymousCredentials(),
+        transport="grpc_asyncio",
+    )
+
+    # Mock the actual call within the gRPC stub, and fake the request.
+    with mock.patch.object(
+        type(client.transport.update_instance_partition), "__call__"
+    ) as call:
+        # Designate an appropriate return value for the call.
+        call.return_value = grpc_helpers_async.FakeUnaryUnaryCall(
+            operations_pb2.Operation(name="operations/spam")
+        )
+        response = await client.update_instance_partition()
         call.assert_called()
         _, args, _ = call.mock_calls[0]
         assert args[0] == spanner_instance_admin.UpdateInstancePartitionRequest()
@@ -6534,7 +7540,8 @@ async def test_update_instance_partition_async(
         # Establish that the underlying gRPC stub method was called.
         assert len(call.mock_calls)
         _, args, _ = call.mock_calls[0]
-        assert args[0] == spanner_instance_admin.UpdateInstancePartitionRequest()
+        request = spanner_instance_admin.UpdateInstancePartitionRequest()
+        assert args[0] == request
 
     # Establish that the response is the type that we expect.
     assert isinstance(response, future.Future)
@@ -6749,9 +7756,8 @@ def test_list_instance_partition_operations(request_type, transport: str = "grpc
         # Establish that the underlying gRPC stub method was called.
         assert len(call.mock_calls) == 1
         _, args, _ = call.mock_calls[0]
-        assert (
-            args[0] == spanner_instance_admin.ListInstancePartitionOperationsRequest()
-        )
+        request = spanner_instance_admin.ListInstancePartitionOperationsRequest()
+        assert args[0] == request
 
     # Establish that the response is the type that we expect.
     assert isinstance(response, pagers.ListInstancePartitionOperationsPager)
@@ -6774,6 +7780,67 @@ def test_list_instance_partition_operations_empty_call():
         type(client.transport.list_instance_partition_operations), "__call__"
     ) as call:
         client.list_instance_partition_operations()
+        call.assert_called()
+        _, args, _ = call.mock_calls[0]
+        assert (
+            args[0] == spanner_instance_admin.ListInstancePartitionOperationsRequest()
+        )
+
+
+def test_list_instance_partition_operations_non_empty_request_with_auto_populated_field():
+    # This test is a coverage failsafe to make sure that UUID4 fields are
+    # automatically populated, according to AIP-4235, with non-empty requests.
+    client = InstanceAdminClient(
+        credentials=ga_credentials.AnonymousCredentials(),
+        transport="grpc",
+    )
+
+    # Populate all string fields in the request which are not UUID4
+    # since we want to check that UUID4 are populated automatically
+    # if they meet the requirements of AIP 4235.
+    request = spanner_instance_admin.ListInstancePartitionOperationsRequest(
+        parent="parent_value",
+        filter="filter_value",
+        page_token="page_token_value",
+    )
+
+    # Mock the actual call within the gRPC stub, and fake the request.
+    with mock.patch.object(
+        type(client.transport.list_instance_partition_operations), "__call__"
+    ) as call:
+        client.list_instance_partition_operations(request=request)
+        call.assert_called()
+        _, args, _ = call.mock_calls[0]
+        assert args[0] == spanner_instance_admin.ListInstancePartitionOperationsRequest(
+            parent="parent_value",
+            filter="filter_value",
+            page_token="page_token_value",
+        )
+
+
+@pytest.mark.asyncio
+async def test_list_instance_partition_operations_empty_call_async():
+    # This test is a coverage failsafe to make sure that totally empty calls,
+    # i.e. request == None and no flattened fields passed, work.
+    client = InstanceAdminAsyncClient(
+        credentials=ga_credentials.AnonymousCredentials(),
+        transport="grpc_asyncio",
+    )
+
+    # Mock the actual call within the gRPC stub, and fake the request.
+    with mock.patch.object(
+        type(client.transport.list_instance_partition_operations), "__call__"
+    ) as call:
+        # Designate an appropriate return value for the call.
+        call.return_value = grpc_helpers_async.FakeUnaryUnaryCall(
+            spanner_instance_admin.ListInstancePartitionOperationsResponse(
+                next_page_token="next_page_token_value",
+                unreachable_instance_partitions=[
+                    "unreachable_instance_partitions_value"
+                ],
+            )
+        )
+        response = await client.list_instance_partition_operations()
         call.assert_called()
         _, args, _ = call.mock_calls[0]
         assert (
@@ -6813,9 +7880,8 @@ async def test_list_instance_partition_operations_async(
         # Establish that the underlying gRPC stub method was called.
         assert len(call.mock_calls)
         _, args, _ = call.mock_calls[0]
-        assert (
-            args[0] == spanner_instance_admin.ListInstancePartitionOperationsRequest()
-        )
+        request = spanner_instance_admin.ListInstancePartitionOperationsRequest()
+        assert args[0] == request
 
     # Establish that the response is the type that we expect.
     assert isinstance(response, pagers.ListInstancePartitionOperationsAsyncPager)
